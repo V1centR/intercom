@@ -3,49 +3,37 @@
 <body class="webstore home" >    
     <script>angular.module('ui.bootstrap.app', ['ngAnimate','ui.bootstrap']);</script>
     <?= $this->render('orion/b_principal'); ?>
-    
-    <?= $this->render('orion/barra_categoria'); ?>    
+    <?= $this->render('orion/barra_categoria'); ?>
     <?= $this->render('orion/banner_principal'); ?>
-   
+    
     <div id="newsletter">
     <?= $this->render('orion/newsletter'); ?>
-    </div>
-    
+    </div>    
     <div id="main" class="clearfix">
         <div class="content">
             <div class="main-content clearfix">
-
             <!--############## barra para vc aqui ###########-->
-             <?= $this->render('orion/para_voce'); ?>
-               
-                <?= $this->render('orion/produto_categoria'); ?>        
-            
+             <?= $this->render('orion/para_voce'); ?>               
+             <?= $this->render('orion/produto_categoria'); ?>            
             </div>
-
         </div>
     </div>
-
     <!--rodape#################################-->
     <footer>
         <div class="go-to-top-container">
             <div class="go-to-top">
             </div>
         </div>
-
         <div class="go-to-top-container">
             <div class="go-to-top hide">
             </div>
         </div>
-
         <?= $this->render('orion/atendimento'); ?>
-
         <?= $this->render('orion/forma_pagamento'); ?>
-
         <?= $this->render('orion/sobre_loja'); ?> 
     </footer>
 </div>
 </div>
-
 <?= $this->render('orion/footer'); ?>
 <script>
 $(document).ready(function(){            
