@@ -1,0 +1,180 @@
+<!--menu container ###############-->
+<div class="site-menu-container">
+    <nav id="site-menu" class="site-menu">
+        <ul>
+            <?php            
+                      
+            $hide_show = 0;
+            foreach ($categorias as $data1) {
+               
+             if ($data1['cat_status'] == "A") {
+                    $hide_show ++;
+                }
+            }
+
+            if ($hide_show <= 8) {
+
+                 $hide_div = 'style="display: none;"';
+                $limit_categoria = true;
+                
+            } else {
+                $hide_div = '';
+                $limit_categoria = false;
+               
+            }
+            ?>
+
+            <li class="menu-item todo-shopping" <?php echo $hide_div; ?> style="width: 190px;">
+                <a class="menu-item-link"><i class="icon-wm-chevron-sign-down"></i>Veja todo o shopping</a>
+                <div class="submenu-wrapper">
+                    <div class="submenu-border" style="height: 370px;">
+                       
+                        <div style="position: relative; float: left; margin: 12px;">
+                        <?php
+                            $new_column = 1;
+                            //print_r($todo_shopping);
+                            
+                                    foreach ($todo_shopping as $categoria_data) {
+                                        
+                                        echo '<dd class="item" style="font-weight: bold;"><a href="/categoria'.$categoria_data['url'].'><span class="icon item-icon wm-icon"></span>'.$categoria_data['nome'].'</a></dd>';
+                                     
+                                         if ($new_column % 8 == 0 && $new_column != 0) {
+
+                                            echo '</div>';
+                                            echo '<div style="position: relative; float: left; margin: 12px;">';
+                                        }
+
+                                        $new_column++;
+                                        
+                                    }
+                        
+                        ?>
+                        
+                        
+                    </div>
+                </div>
+            </li>
+           
+<?php
+$contador = 0;
+
+//print_r($categorias);
+
+foreach ($categorias as $data2) {
+
+    $contador++;
+
+    $set_img = $data2['imagemId'];
+    $set_ext = 'png';
+    $status = $data2['status'];
+    $menu_size;
+    $imagem_destaque;
+    $img_aba = $data2['ImagemcategoriaId'].'.'.$data2['img_aba_ext'];    
+    
+    if($data2['ImagemcategoriaId'] == 1){        
+        $menu_size = 'submenu-wrapper-empty';
+        $imagem_destaque = '';        
+    } else {        
+        $menu_size = '';
+        $imagem_destaque = '<a href="#" class="banner-item"><img class="lazy-image-menu loading" data-src="/images/img' .$img_aba. '" border="0" width="333" height="333"></a>';        
+    }
+
+    $img = 'img' . $set_img . '.' . $set_ext;
+
+    if ($status == 'A') {
+        $img_ok = '<img src="/images/' . $img . '">';
+    } else {
+        $img_ok = '';
+    }
+
+
+    if (($hide_show <= 10 && $contador <= 10) || ($hide_show > 10 && $contador <= 9)) {
+        
+        
+            if($contador >= 8){
+                
+                $no_tablet = 'no-tablet';
+                
+            } else{
+                
+                $no_tablet = '';
+                
+            }
+
+        echo '
+                           <li class="menu-item '.$no_tablet.'">
+                                <a class="menu-item-link" href="/categoria' . $data2['url'].'"> 
+                                ' . $img_ok . '<br>' . $data2['nome'] . ' </a>
+                                    
+
+                                <div class="submenu-default submenu-wrapper '.$menu_size.' '.left_right($contador).'">
+                                
+                                <div class="submenu-border">
+                                <ul class="categories">';
+
+                                    #subcategorias##########################
+                                    $count_li = 0;
+                                    foreach ($sub_cat[$data2['id']] as $sub) {
+                                        
+                                        
+                                        $menu_item = explode(';', $sub);                                        
+                                        $sub_menu_nome = $menu_item[0];
+                                        $sub_menu_url = $menu_item[1];
+                                        
+                                        if(strlen($sub_menu_nome) > 20){
+                                            
+                                            $cut = '...';                                            
+                                        } else{
+                                            
+                                            $cut = '';                                            
+                                        }
+                                        if($count_li <= 9){
+                                            
+                                            echo '<li class="item"><a href="/categoria-sub'.$data2['url'].$sub_menu_url.'">' .substr($sub_menu_nome, 0, 20).$cut. "</a></li>";
+                                            
+                                        }
+                                        $count_li++;
+                                       
+                                    }
+                                    ########################################                        
+
+                                echo '</ul>                                    
+                                        '.$imagem_destaque.'
+                                            <div style="min-width:300px;">
+                                        <a href="/categoria'.$data2['url'].'" class="footer clearfix">Veja toda a loja de <strong>'.$data2['nome'].'</strong></a></div>
+                                    </div>';
+
+        echo '</div>
+    </li>
+   
+<!--/li.menu-item-->';
+    }
+}
+
+
+    function left_right($switch){
+
+        if($switch >= 6){        
+            $style_select = 'submenu-align-right';
+        } else{        
+            $style_select = '';
+        }    
+       return $style_select;    
+    }
+
+?>
+           
+            <li class="menu-item seasonal last"></li>
+
+            <div>
+
+
+            </div>
+         
+            
+        </ul>
+
+    </nav>
+</div>
+<div class="clearfix"></div>
+<!--/menu container ###############-->

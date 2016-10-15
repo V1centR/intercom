@@ -1,0 +1,99 @@
+<div id="category-products" class="shelf-container">
+
+    <section>
+        <ul class="shelf-itens two-rows clearfix" data-quantity="388" data-url="?fq=C%3A4791%2F4792%2F&amp;PS=20&amp;region=sudeste" itemprop="itemOffered" itemscope="" itemtype="//schema.org/ItemList">         
+
+            <?php
+            
+            
+            
+            
+       
+    foreach($prod_categoria as $data_vendidos){
+        
+        
+        $preco_unit = $data_vendidos['precounitario'];
+                   
+                   $preco_promo = substr($data_vendidos['precopromocional'], 0, -3);
+                   $preco_promo_dec = substr($data_vendidos['precopromocional'], -2);               
+                    
+                    if(empty($preco_promo)){
+                        $preco_promo = substr($preco_unit, 0, -3);
+                        $preco_promo_dec = substr($preco_unit, -2);
+                        $hide = 'style="display:none"';
+                    } else {
+                        $hide = '';                
+                    }
+        
+        $seo = filterUrl($data_vendidos['nome'],'-');
+        
+        echo ' <li class="shelf-item item-0 with-buy-box" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product" data-productId="3086266" data-available="true">
+                <figure><a href="/produto/'.$data_vendidos['id'].'/'.$seo.'" title="" itemprop="url"><img src="/images/img'.$data_vendidos['imagemId'].'.'.$data_vendidos['ext'].'" class="lazy-image loading" alt="" itemprop="image" width="220" height="220"></a></figure>
+                <div class="inner-content">
+                    <a href="/produto/'.$data_vendidos['id'].'/'.$seo.'" class="product-link">
+                        <span class="product-title" itemprop="name" style="height:50px;">'.$data_vendidos['nome'].'</span>
+                        <p class="shelf-price"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <span class="payment-price-old">
+                            
+<span class="label"  '.$hide.'>De: </span><del  '.$hide.'>R$ '.$preco_unit.'</del></span>
+                            <span class="payment-sell">
+                                <span class="label">Por</span><span class="payment-currency">R$ </span>
+                                <meta itemprop="priceCurrency" content="BRL">
+                                <span class="payment-price" itemprop="price"><strong><span class="int">'.$preco_promo.'</span><span class="dec">,'.$preco_promo_dec.'</span></strong></span><span class="tooltip-container"></span>
+                            </span>
+                            <span class="payment-installment"><span class="payment-installment-amount" itemprop="itemCondition">10x <span>de </span><span class="payment-installment-currency"></span><span class="payment-installment-price">R$ 121,41 </span><span class="payment-installment-condition">sem juros</span></span></span>
+                        </p>
+                    </a>
+                    <div class="button-container"><button type="button" class="buy-button btn btn-success hidden" data-sku="1220560" data-product="3086266" data-seller="1" data-available="true" data-skipservice="true"><span class="icon"></span></button></div>
+                </div>
+            </li>';
+    }
+    
+    
+    
+    ?>
+
+
+
+
+        </ul>
+    </section>
+    <a data-page-loaded="1" href="" class="btn btn-primary shelf-view-more next" data-max-pages="20">
+        <span class="icon"></span>
+        <span class="label">Ver mais resultados</span></a>
+</div>
+
+<?php
+
+function filterUrl($string, $slug = false) {
+          $string = strtolower($string);         
+          $ascii['a'] = range(224, 230);
+          $ascii['e'] = range(232, 235);
+          $ascii['i'] = range(236, 239);
+          $ascii['o'] = array_merge(range(242, 246), array(240, 248));
+          $ascii['u'] = range(249, 252);          
+          $ascii['b'] = array(223);
+          $ascii['c'] = array(231);
+          $ascii['d'] = array(208);
+          $ascii['n'] = array(241);
+          $ascii['y'] = array(253, 255);
+          foreach ($ascii as $key=>$item) {
+            $acentos = '';
+            foreach ($item AS $codigo) $acentos .= chr($codigo);
+            $troca[$key] = '/['.$acentos.']/i';
+          }
+          $string = preg_replace(array_values($troca), array_keys($troca), $string);
+        
+          if ($slug) {
+           
+            $string = preg_replace('/[^a-z0-9]/i', $slug, $string);
+          
+            $string = preg_replace('/' . $slug . '{2,}/i', $slug, $string);
+            $string = trim($string, $slug);
+          }
+          return $string;
+        }
+
+
+
+?>

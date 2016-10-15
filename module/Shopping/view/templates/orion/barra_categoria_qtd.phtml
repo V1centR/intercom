@@ -1,0 +1,97 @@
+<aside class="menu-left">
+
+    <?php
+   $match_menu = 0;
+
+    
+    foreach ($cat_list as $cat) {
+
+        $total_products = 0;
+
+
+        if ($cat['cat_num_itens'] > 0) {
+            $style_link = 'open-sub-menu';
+        } else {
+            $style_link = '';
+        }
+
+
+        foreach ($container_categoria as $key => $value_cat) {
+            if ($key == $cat['cat_pai_id']) {
+                foreach ($value_cat as $sub_nome) {
+                    $total_products += $sub_nome['qtd'];
+                }
+            }
+        }
+        
+        
+        if($total_products == 0){
+            
+            $link_cat = ' <a class="left-menu-item">
+                  <span class="menu-name">' . $cat['nome'] . '</span>
+              </a>';
+            
+        } else{
+            
+             $link_cat = ' <a class="left-menu-item" href="/categoria-sub' . $cat['url_pai'] . $cat['url_sub'] . '/?config=full ">
+                  <span class="menu-name">' . $cat['nome'] . '</span>
+              </a>';
+        }
+        
+
+ echo '<p class="wrapper-menu-title ' . $match_menu . '">
+         <a class="arrow-menu ' . $style_link . '" href="#" data-menu="' . $match_menu . '">
+              <span class="icon-arrow"></span>
+          </a>
+          
+
+          <strong class="menu-title clearfix ' . $match_menu . '">
+              '.$link_cat.'
+              <span class="menu-count">' . $total_products . '</span>
+          </strong>
+          
+      </p>
+      
+<ul style="display: block;" class="sub-menu ' . $match_menu . ' clearfix">
+';
+
+
+        foreach ($container_categoria as $key => $value_cat) {
+
+            if ($key == $cat['cat_pai_id']) {
+
+
+                foreach ($value_cat as $sub_nome) {
+                    
+                    if($sub_nome['qtd'] != 0){
+                        
+                        echo ' <li class="sub-menu-item">
+                                <a class="sub-menu-link" href="/categoria-sub' .$sub_nome['url_pai'].$sub_nome['url_sub'] . '/?set=full">
+                                 <span class="menu-name">' . $sub_nome['nome'] . '</span>
+                                </a>
+                                <span class="menu-count">' . $sub_nome['qtd'] . '</span>
+                           </li>';
+                        
+                        
+                    } else{
+                        
+                        echo ' <li class="sub-menu-item">
+                                <a class="sub-menu-link" title="">
+                                 <span class="menu-name">' . $sub_nome['nome'] . '</span>
+                                </a>
+                                <span class="menu-count">' . $sub_nome['qtd'] . '</span>
+                           </li>';
+                        
+                    }
+
+                    
+                }
+            }
+        }
+
+        echo '</ul>';
+
+        $match_menu++;
+    }
+    ?>
+</aside>

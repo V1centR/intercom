@@ -1,0 +1,46 @@
+<?php
+$set_banner = 0;
+?>
+<script>
+ $(window).load(function() {
+        $('div#loadBanner').fadeOut('fast').remove();
+        $('div#bannerPrincipal').fadeIn('fast');
+    });
+</script>
+<!--Carroussel####################################-->
+<div ng-controller="CarouselCtrl">
+    
+    <div class="loading" style="height: 348px; background-color: #fff;" id="loadBanner"></div>
+    <div id="bannerPrincipal" style="display: none;">
+        
+        <carousel interval="myInterval">
+            <slide ng-repeat="slide in slides" active="slide.active">
+                <a href="{{slide.url}}">
+                    <img ng-src="{{slide.image}}" style="margin:auto;">
+                </a>
+                
+            </slide>
+        </carousel>
+    </div>
+   
+<script>
+angular.module('ui.bootstrap.app').controller('CarouselCtrl', function ($scope) {
+ $scope.myInterval = 5000; 
+ $scope.slides = [
+	        
+	        <?php
+	            foreach ($banners as $data_banner) {	             
+	                if($data_banner['categoriaId'] == $set_banner){	                 
+	                    echo '{ image: "images/img'.$data_banner['imagemId'].'.'.$data_banner['ext'].'", url:"'.$data_banner['url'].'", text:[""]},';	                    
+	                }	
+	            }	          
+	        ?>       
+	       
+	    ];
+            
+            }
+            
+            );
+</script>
+</div>
+<!--/Carroussel####################################-->

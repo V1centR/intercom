@@ -1,0 +1,35 @@
+<!--Carroussel####################################-->
+<div class="loading" style="margin-bottom: 20px;">
+    <div ng-controller="OtnCarousel" id="slides_control">
+        <div>
+            <carousel interval="myInterval">
+                <slide ng-repeat="slide in slides" active="slide.active">
+                    <img ng-src="{{slide.image}}">
+
+                </slide>
+            </carousel>
+        </div>
+    </div>
+    <script>
+        angular.module('ui.bootstrap.app').controller('OtnCarousel', function ($scope) {
+            $scope.myInterval = 5000;
+            $scope.slides = [
+<?php
+$limit = 0;
+foreach ($banners as $data_banner_sec) {
+
+
+    echo '{ image: "/images/img' . $data_banner_sec['img_id'] . '.' . $data_banner_sec['ext'] . '"},';
+}
+?>
+
+            ];
+        }
+
+        );
+
+
+
+    </script>
+</div>
+<!--/Carroussel####################################-->

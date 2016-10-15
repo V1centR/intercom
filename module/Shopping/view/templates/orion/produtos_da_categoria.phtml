@@ -1,0 +1,52 @@
+<div class="categories shelf-container">
+    <ul class="shelf-itens clearfix two-rows">
+        
+        
+        <?php
+        
+       // print_r($cat_list);
+        $counter = 0;
+       
+        foreach ($cat_list as $key => $value) {
+            
+          //  echo $value['nome'].'<br>';
+            
+           // $imagem = $value['img_id'].'.'.$value['ext'];
+            
+            
+            if($counter < 8){
+                
+                
+            if($value['img_id'] == 1){
+                
+                $imagem = 'img141.png';
+            } else {
+                
+                $imagem = 'img'.$value['img_id'].'.'.$value['ext'];
+                
+            }
+            
+            echo '<li class="shelf-item item-1" data-index="1">
+            <figure><a href="'.$value['url_sub'].'"><img src="/images/'.$imagem.'" width="154" height="154" alt=""></a></figure>
+            <a href="/categoria-sub' . $value['url_pai'] . '' . $value['url_sub'] . '"><span class="product-name">'.$value['nome'].'</span></a>
+        </li>';
+                
+                
+                
+            }
+            
+            $counter++;
+            
+            
+            
+            
+    
+}
+        
+        ?>
+        
+        
+        
+      
+    </ul>
+</div>

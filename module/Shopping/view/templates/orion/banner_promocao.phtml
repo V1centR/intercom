@@ -1,0 +1,38 @@
+<!--<div class="carousel-banners arrow-big border-shadow loading" data-realmedia-creative="x10"></div>-->
+
+
+<!--Carroussel####################################-->
+<div class="carousel-banners loading">
+    <div ng-controller="OtnCarouselPromo" id="slides_control">
+        <div>
+            <carousel interval="myInterval">
+                <slide ng-repeat="slide in slides" active="slide.active">
+                    <img ng-src="{{slide.image}}">
+
+                </slide>
+            </carousel>
+        </div>
+    </div>
+    <script>
+        angular.module('ui.bootstrap.app').controller('OtnCarouselPromo', function ($scope) {
+            $scope.myInterval = 5000;
+            $scope.slides = [
+<?php
+$limit = 0;
+foreach ($banners as $data_banner_sec) {
+
+
+    echo '{ image: "/images/img' . $data_banner_sec['img_id'] . '.' . $data_banner_sec['ext'] . '"},';
+}
+?>
+
+            ];
+        }
+
+        );
+
+
+
+    </script>
+</div>
+<!--/Carroussel####################################-->

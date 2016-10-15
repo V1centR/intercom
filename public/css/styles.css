@@ -1,0 +1,890 @@
+@font-face {
+    font-family: 'museo300';
+    src: url('fonts/museo-webfont.eot');
+    src: url('fonts/museo-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/museo-webfont.woff') format('woff'),
+        url('fonts/museo-webfont.ttf') format('truetype'),
+        url('fonts/museo-webfont.svg#museo_sans300') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo900';
+    src: url('fonts/museo900-webfont.eot');
+    src: url('fonts/museo900-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/museo900-webfont.woff') format('woff'),
+        url('fonts/museo900-webfont.ttf') format('truetype'),
+        url('fonts/museo900-webfont.svg#museo_sans900') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* PRE LOADER */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fefefe;
+    z-index: 99999;
+    height: 100%;
+    width: 100%;
+    overflow: hidden !important;
+}
+.status {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-image: url(../images/loading.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: -100px 0 0 -100px;
+}
+
+/*---------------------------------------
+=========================================
+ **   SECTION STYLES                 -----
+=========================================
+-----------------------------------------*/
+
+/*----  SECTION:  HOME > TOP BAR   ----*/
+.navbar {
+    background: #FFF;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0 !important;
+    text-align: left;
+    -webkit-box-shadow: 0px 5px 11px 0px rgba(50, 50, 50, 0.08);
+    box-shadow: 0px 5px 11px 0px rgba(50, 50, 50, 0.08);
+}
+#main-nav {
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+    min-height: 75px;
+}
+#main-nav.fixed {
+    position: fixed !important;
+    top: 0;
+}
+.navbar-inverse .navbar-nav>li {
+    display: inline;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.navbar-inverse .navbar-nav>li:last-child {
+    margin-right: 0 !important;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #404040;
+    padding: 0;
+    line-height: 35px;
+}
+.navbar-brand {
+    margin: 0 auto;
+    display: block;
+    float: none;
+}
+.current a {
+    color: #a7c100 !important;
+    position: relative;
+    outline: none;
+}
+.current:before {
+    position: absolute;
+    margin: auto;
+    z-index: 1;
+    content: "";
+    width: 75%;
+    height: 2px;
+    background: #a7c100;
+    bottom: 0px;
+    left: 12.5%;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #a7c100;
+    outline: none;
+}
+.navbar-toggle {
+    border: 0;
+    background-color: #808080;
+    margin-top: 23px;
+}
+.navbar-inverse .navbar-toggle:hover,.navbar-inverse .navbar-toggle:focus {
+    background-color: #a7c100;
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+
+/* PROJECT DETAILS LOADER */
+#back-button {
+    display: none;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 13px 35px 13px 35px;
+    border-radius: 4px;
+    margin: 10px;
+}
+#back-button i {
+    margin-right: 10px;
+}
+#loader {
+    min-height: 930px;
+    position: relative;
+    display: none;
+}
+#loader .loader-icon {
+    background: url(../images/loading.gif) no-repeat center center;
+    background-color: #FFF;
+    margin: -22px -22px;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    position: fixed;
+    width: 44px;
+    height: 44px;
+    -webkit-background-size: 30px 30px;
+    background-size: 30px 30px;
+    border-radius: 5px;
+}
+
+/*
+    CONTROLES
+*/
+
+.portal-controles{    
+    font-family: "museo300";
+    color: #4D4D4D;
+}
+
+.portal-controles *{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.portal-controles h3{
+    font-size: 11pt;
+}
+
+.label-restrito span{
+    font-size: 17pt;
+}
+
+.label-restrito{
+    padding: 4px 25px 0 15px;
+    background: url(../images/assets/fundo-restrito.png) no-repeat;
+}
+
+.portal-controles input{
+    height: 27px;
+}
+
+.restrito-senha{
+    width: 100px!important;
+}
+
+.restrito-email{
+    width: 150px;
+}
+
+.restrito-ok{
+    padding: 3px 12px;
+}
+
+textarea:hover, input:hover, textarea:active, input:active, textarea:focus, input:focus {
+    outline: 1 !important;
+    outline-color: #F58634 !important;
+    border: 1px solid #F58634 !important;
+}
+
+.controle-direita{
+    float: right;
+    margin-top: 8px;
+}
+
+.controle-esquerda{
+    float: left;
+}
+
+.portal-v-rule{
+    border-right: 1px dotted #808080;
+    padding-right: 9px;
+}
+
+.btn-esqueci{
+    padding-left: 9px;
+    border-left: 1px dotted #808080;
+    margin-left: 5px;
+}
+
+.btn-controle-logado{
+    padding-left: 9px;
+    border-left: 1px dotted #808080;
+    margin-left: 5px;
+}
+
+.portal-controles a{
+    color: #4D4D4D;
+}
+
+.portal-controles a:hover, .portal-controles a:active, .portal-controles a:focus{
+    color: #F58634;
+}
+
+header h1{
+    font-size: 40px;
+    margin-top: 20px;
+    color: #848688;
+}
+
+header h2{
+    font-size: 30px !important;
+    color: #F58634;
+    text-align: left;
+}
+
+.ui-menu .ui-menu-item{
+    text-align: left;
+}
+
+.portal-header{
+    padding-bottom: 10px;
+}
+
+.marketing-icon{
+    font-size: 24pt;
+    margin-top: 112%;
+    display: block;
+}
+
+.carousel-control{
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.portal-banners{
+    padding: 0!important;
+}
+
+.portal-banners > img{
+    margin-top: 5px;
+}
+
+.portal-footer{
+    padding: 10px 0;
+    margin-top: 5px;
+}
+
+.copyright{
+    font-size: 12pt;
+    padding-top: 6px;
+    color: #FFF;
+}
+
+.social>h4 {
+    display: inline-block;
+    color: #FFF;
+    vertical-align: middle;
+    margin-top: -15px;
+}
+
+.social>a{
+    font-size: 17pt;
+    margin-top: 5px;
+    margin-left: 15px;
+    color: #FFF;
+    display: inline-block;
+}
+
+.social>a:hover, .social>a:focus{    
+    color: #F58634;
+}
+
+form *{
+    text-align: left;
+}
+
+.tab-content{
+    padding-top: 20px;
+}
+
+.nav-tabs{
+    margin-top: 10px;
+}
+
+.alert{
+    margin-bottom: 0px;
+}
+
+.rws-titulo{
+    font-size: 32px;
+    color: #f58634;
+}
+
+.panel-form-label{
+    font-size: 16px;
+    color: #f58634;
+}
+
+.rws-titulo-plano{
+    background: #F58634;
+    color: #FFF;
+    padding: 5px 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.rws-plano-sub{
+    text-align: left;
+    margin: 30px 0;
+}
+
+.rws-editar{
+    padding-top: 20px;
+}
+
+.rws-form-margin{
+    margin-top: 25px;
+}
+
+.box-plano{
+    border: 1px solid #F58634;
+    margin-bottom: 15px;
+}
+
+.package-header {
+    height: 57px;
+    color: #FFF;
+    line-height: 57px;
+    background: #ff7400; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ff7400 0%, #e54800 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff7400), color-stop(100%,#e54800)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ff7400 0%,#e54800 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ff7400 0%,#e54800 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ff7400 0%,#e54800 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ff7400 0%,#e54800 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7400', endColorstr='#e54800',GradientType=0 ); /* IE6-9 */
+
+}
+.package-header h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+}
+.price-container{
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+}
+.price {
+    line-height: 120px;
+    color: #FFF;
+    font-weight: 400;
+}
+.price h4 {
+    display: inline;
+    font-size: 40px;
+    line-height: normal;
+    margin-bottom: 0;
+}
+.price h4 .dollar-sign {
+    font-size: 17px;
+    vertical-align: super;
+}
+.price .price-meta {
+    line-height: normal;
+    text-transform: uppercase;
+    color: #9f9f9f;
+}
+.package ul li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16pt;
+    width: 80%;
+    margin: auto;
+    border-bottom: 1px dotted #dadada;
+}
+.package ul li:last-child {
+    border-bottom: 0;
+}
+
+.escolher-plano-btn{
+    width: 90%;
+    background: #ff7400; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ff7400 0%, #e54800 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff7400), color-stop(100%,#e54800)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ff7400 0%,#e54800 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ff7400 0%,#e54800 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ff7400 0%,#e54800 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ff7400 0%,#e54800 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7400', endColorstr='#e54800',GradientType=0 ); /* IE6-9 */
+}
+
+.escolher-plano-btn:hover, .escolher-plano-btn:focus, .escolher-plano-btn:active{
+    background: #e57200; /* Old browsers */
+    background: -moz-linear-gradient(top, #e57200 0%, #b72d00 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e57200), color-stop(100%,#b72d00)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #e57200 0%,#b72d00 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #e57200 0%,#b72d00 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #e57200 0%,#b72d00 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #e57200 0%,#b72d00 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e57200', endColorstr='#b72d00',GradientType=0 ); /* IE6-9 */
+    //copy
+}
+
+.plano-escolhido{
+    -webkit-box-shadow: 0 0 25px 2px #e57200;
+    box-shadow: 0 0 25px 2px #e57200;
+}
+
+.icon-check{
+    margin-right: 10px;
+}
+
+.menu-logado{
+    margin-top: 7px;
+}
+
+.align-left{
+    text-align: left;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+    background: #F58634;
+}
+
+.imovel-list-edit{
+    margin-top: 5px;
+    background: #EEE;
+    padding: 10px 0;
+    margin-right: -10px;
+}
+
+.imovel-list-edit h1{
+    color: #F58634;
+    text-transform: uppercase;
+    font-size: 17px;
+    text-align: left;
+    font-weight: bold;
+}
+.imovel-list-edit h2{
+    font-size: 17px !important;
+    line-height: normal;
+    text-align: left;
+}
+.imovel-list-edit h1 > i{
+    font-size: 15px;
+    margin-right: 7px;
+    font-style: normal;
+}
+
+.imovel-nome-list{
+    text-align: left;
+}
+.imovel-icon{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    text-align: left;
+}
+.imovel-icon-modalidade{
+    background: url(../images/icons/modalidade.png) no-repeat center center;
+}
+.imovel-icon-area{
+    background: url(../images/icons/area.png) no-repeat center center;
+}
+.imovel-icon-quartos{
+    background: url(../images/icons/quartos.png) no-repeat center center;
+}
+.imovel-icon-tipo{
+    background: url(../images/icons/tipo.png) no-repeat center center;
+}
+.imovel-icon-banheiros{
+    background: url(../images/icons/banheiros.png) no-repeat center center;
+}
+.imovel-icon-garagem{
+    background: url(../images/icons/garagem.png) no-repeat center center;
+}
+
+.imovel-local-list h1 {
+    color: #F58634;
+    text-transform: uppercase;
+    font-size: 18px;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.package ul .valores-planos{
+    font-size: 14px;
+    color: #FC8300;
+}
+
+.control-label{
+    display: block;
+}
+
+.imovel-edit-painel-controle {
+    margin-top: 4px;
+}
+.imovel-edit-painel-controle a{
+    font-size: 18pt;
+}
+.imovel-edit-painel-controle a:active, .imovel-edit-painel-controle a:focus{
+    text-decoration: none;
+}
+
+#listaFotos{
+    text-align: left;
+    padding: 0 15px 0 15px;
+}
+
+#listaFotos > div{
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: #DFDFDF;
+    float: left;
+    margin: 5px;
+}
+#listaFotos > div > a{
+    position: relative;
+    bottom: 40px;
+    left: 62px;
+    font-size: 23pt;
+    color: rgba(255,255,255,1);
+}
+#listaFotos > div > a:hover{
+    color: #F58634;
+}
+
+.addFotoImovelBtn{
+    font-size: 16pt;
+    margin-left: 20px;
+}
+
+.foto-list-meusimoveis{
+    width: 97px;
+}
+
+.dragHelper{
+    border:4px dashed #F0F7F9;
+    min-height:100px;
+    margin:4px;
+}
+
+#excluirImovelBtn{
+    width: 40%;
+    margin: 0 auto;
+    display: block;
+    margin-left: 172px;
+    text-align: center;
+}
+
+.imovel-lista-ativo{
+    background: #EEE;
+}
+
+.imovel-lista-bloqueado{
+    background: #4F0C00;
+}
+
+#loader-master{
+    background: rgba(255, 255, 255, 0.82);
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    visibility:hidden;
+    opacity:0;
+    transition-delay:0s;
+    transition:visibility 0s linear 0.3s,opacity 0.3s linear;
+}
+
+.loading-portal{
+    width: 100%;
+    height: 100%;
+    background: url(../images/assets/loading.gif) no-repeat center;
+}
+
+.texto-tachado{
+    text-decoration: line-through;
+}
+
+.portal-imoveis{
+    padding: 0px !important;
+}
+
+.box-vitrine{
+    margin: 20px 22px 0px 0px;
+    border: #BDBFC1 solid 1px;
+    padding: 0;
+    width: 31%;
+}
+
+.imovelInfo{
+    padding: 10px;
+    text-align: left;
+}
+
+.destaque-imovel-box{
+    margin: 20px 0px 0px 0px;
+    border: #BDBFC1 solid 1px;
+    padding: 0;
+    width: 98%;
+    height: 410px;
+}
+
+.descricaoInfo h2{
+    font-size: 32px !important;
+}
+
+.detalhes-imovel-box{
+    margin: 20px 0px 0px 0px;
+    border: #BDBFC1 solid 1px;
+    padding: 0;
+    width: 98%;
+}
+
+.detalhes-imovel-box p{
+    font-size: 11pt;
+    margin-bottom: 25px;
+}
+
+.destaque-imovel-box p{
+    font-size: 11pt;
+    height: 135px;
+    max-height: 127px;
+    min-height: 112px;
+}
+
+.detalhes-imovel-box .imovelInfo{
+    padding: 10px;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.detalhes-imovel-box .imovelInfo{
+    padding: 10px;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.destaque-imovel-box .imovelInfo{
+    padding: 10px;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.detalhes-imovel-box h1{
+    font-size: 24px;
+    color: #F58634;
+}
+
+.destaque-imovel-box h1{
+    font-size: 30px;
+    color: #F58634;
+}
+
+.detalhes-imovel-box h3 {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 10px;
+    color: #454545;
+}
+
+.destaque-imovel-box h3 {
+    font-size: 16px;
+    text-align: right;
+    margin-bottom: 10px;
+    color: #454545;
+}
+
+.valorInfo i{
+    font-family: "museo300";
+    font-size: 12px;
+    display: inline-block;
+    color: #F58634;
+    margin-top: -15px;
+    margin-right: 5px;
+    font-style: normal;
+}
+
+.valorInfo h1{
+    font-family: "museo900";
+    font-size: 28px;
+    display: block;
+    color: #F58634;
+    text-align: right;
+    float: right;
+    margin-top: -5px;
+}
+
+.valorInfoDescricao i{
+    font-family: "museo300";
+    font-size: 12px;
+    display: inline-block;
+    color: #F58634;
+    margin-top: -15px;
+    margin-right: 5px;
+    font-style: normal;
+}
+
+.valorInfoDescricao h1{
+    font-family: "museo900";
+    font-size: 28px;
+    display: block;
+    color: #F58634;
+    text-align: left;
+}
+
+.destaque-imovel-box .valorInfo h1{
+    font-size: 38px;
+}
+
+.imovelInfo ul{
+    text-align: left;
+    font-size: 12pt;
+}
+
+.imovelInfo ul li{
+    vertical-align: top;
+}
+
+.destaque-imovel-box .imovelInfo ul li{
+    font-size: 16pt;
+}
+
+.no-padding-right{
+    padding-right: 0px;
+    padding-left: 15px
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.box-vitrine > .fotoImovel{
+
+}
+
+.destaque-imovel-box .fotoImovel{
+
+}
+
+.galeriaInfo{
+    padding: 0;
+}
+
+.pika-textnav, .pika-counter, .caption {
+    display: none!important;
+}
+
+.pika-stage{
+    width: 408px;
+    height: 408px;
+}
+
+.jcarousel-skin-pika .jcarousel-item-vertical {
+    margin: 4px 0 0 0;
+    padding: 0;
+    border: none;
+}
+
+.descricaoInfo{
+
+}
+
+.tituloBox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.9);
+    right: 0;
+    padding-top: 5px;
+}
+
+.tituloBox h1 {
+    font-size: 20px;
+    text-align: center;
+    color: #F58634;
+}
+
+.tituloBox h3 {
+    font-size: 14px;
+    color: #454545;
+}
+
+.painel-proposta{
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.painel-proposta .panel-heading{
+    font-size: 16pt;
+}
+
+.proposta-panel{
+    padding: 8px 25px;
+}
+
+.proposta-btn{
+    width: 100%;
+}
+
+#proposta_proposta{
+    height: 150px!important;
+    max-height: 150px;
+    max-width: 263px;
+}
+
+.ver-mais a{
+    position: absolute;
+    top: 62px;
+    right: 8px;
+    font-size: 30pt;
+    color: #FFF;
+}
+
+.ver-mais-destaque a{
+    position: absolute;
+    top: 6px;
+    right: 9px;
+    font-size: 20pt;
+    color: #FF7400;
+}
+
+.pika-thumbs{
+    height: auto;
+    margin: 10px 0 0 0px;
+}
+
+.jcarousel-skin-pika{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    overflow: overlay;
+    height: 408px;
+    margin-top: 0;
+    margin-right: 9px;
+    padding-right: 131px;
+    left: 411px;
+}
+
+.modal-content{
+    text-align: left;
+}
+
+.modal .alert {
+    margin-bottom: 10px;
+}
+

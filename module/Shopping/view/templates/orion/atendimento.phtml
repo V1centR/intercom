@@ -1,0 +1,452 @@
+<span ng-controller="modalAtendimento">
+<div class="footer-self-help ">
+        <div class="self-help-content-left">
+            <strong class="self-help-title">Atendimento</strong>
+            <span class="self-help-icon"></span>
+        </div>
+
+        <div class="self-help-content-right">
+            <form class="self-help-form"><input type="text" class="text-field" placeholder="Como posso te ajudar?"><input type="submit" class="search-icon" value="buscar">
+            </form>
+
+            <div class="user-interactions clearfix">
+                <button class="btn btn-primary btn-chat">
+                    <span class="icon icon-chat"></span>Chat</button>
+                    
+                <button class="btn btn-primary btn-email" data-toggle="modal" data-target="#modalAtend"><span class="icon icon-email"></span>E-mail</button>
+            </div>
+
+
+        </div>
+    </div>
+
+   
+        <?php
+        if (!$this->login) {
+
+            $openModal = 0;
+            ?>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalAtend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog wm-sign-in" style="padding:30px; color:#666; background-color:#f2f2f2;">
+              <a type="button" class="close" data-dismiss="modal" style="display:block; text-decoration:none; cursor:pointer; font-size:30px; position:relative; float:right;top:-8px; height:20px;">×</a>
+              <div class="clearfix">
+                  
+                <div class="title">Atendimento</div>
+                <div class="label" id="msg_atend">Selecione as opções que melhor poderão te atender.</div>
+                <div id="alert-signin-error" class="alert alert-danger alert-dismissable hide"><span class="icon-wm-warning"></span><span id="message">Usuário ou senha inválidos.</span></div>
+                <div class="sign-in-wrapper">
+                    
+                         <form name="contato" id="selectProds">
+                         
+                            <input type="text" name="formType" id="formType" value="0" style="display: none;">            
+                            <input type="text" name="inputnome" id="nomeInput" placeholder="Nome" class="input-box" style="padding-left:8px;">
+                            <input type="text" name="e-mail" id="inputEmail" placeholder="E-mail" class="input-box" style="padding-left:8px;">
+
+                            <select class="input-box" style="padding-left:8px;" name="ocorrencia_opt" id="ocorrencia_opt">
+                                <option value="0" selected>Tipo de solicitação</option>
+
+                                <option value="1">Entrega</option>
+                                <option value="2">Cancelamento</option>
+                                <option value="3">Pedido</option>
+                                <option value="4">Pagamentos e Reembolsos</option>
+                                <option value="5">Troca e Devolução</option>
+                                <option value="6">Outros assuntos</option>
+                            </select>
+
+
+                            <div id="grupoOutrosAssuntos" style="margin-bottom: 10px;">                 
+                                <select class="input-box" style="padding-left:8px;" name="outro_assunto" id="outro_assunto" style="display: none;">
+                                    <option value="0" selected>Assunto</option>
+                                    <option value="0"></option>
+                                    <option value="1">Dúvidas sobre o site</option>
+                                    <option value="2">Dúvidas sobre o preço</option>
+                                    <option value="3">Dúvidas sobre produtos</option>
+                                    <option value="4">Lojas físicas</option>
+                                    <option value="5">Problemas com meu cadastro</option>
+                                </select>
+                            </div>
+
+                            <textarea placeholder="Ajude-nos a entender" class="form-element textarea-element" id="inputTxt" style="height: 150px; margin-bottom: 10px;"></textarea>
+
+                            <button class="btn btn-primary" ng-click="contatoEnvia()" style="position: relative; float: left; margin-right: 12px;">Enviar</button>
+                                <div style="height: 20px; padding-top: 10px;">
+                                    <span id="messageContato" style="font-size: 11px; font-weight: bold; color: #f00;"></span>
+                                    <div ng-show="loadingShow" id="loadingContato" class="loading" style="height: 18px; width: 18px;position: relative; float: left;"></div>
+                                </div>
+                         </form>
+                </div>
+                
+                
+                <div style=" margin: 0 auto; text-align: center; padding: 12px; line-height:40px; display: none;" id="msgEnviada">
+
+    Informações enviadas com sucesso!<br>
+
+<a href="" class="btn btn-primary" id="btnVoltarSite">Voltar para o site</a>
+
+</div>
+                
+              </div>
+          </div>
+            
+        </div>
+    
+
+        <?php } else {
+            ?>
+
+
+
+    <?php
+    $selected_val = '';
+    $value = 0;
+
+
+
+
+    if (isset($_GET['name'])) {
+
+        $nome_post = $_GET['name'];
+    } else {
+
+        $nome_post = '';
+    }
+
+    if (isset($_GET['email'])) {
+
+        $email_post = $_GET['email'];
+    } else {
+
+        $email_post = '';
+    }
+
+    function setForm($value) {
+
+
+
+        if (isset($_GET['name']) && (isset($_GET['option']) )) {
+
+            $selected_val = $_GET['option'];
+            $nome_post = $_GET['name'];
+        } else {
+
+            echo 'params empty';
+
+            $selected_val = '';
+            $nome_post = '';
+        }
+
+
+
+        if ($value == $selected_val) {
+
+            $selected = 'selected';
+        } else {
+
+            $selected = '';
+        }
+
+        return $selected;
+    }
+    ?>
+
+        
+        <!-- Modal -->
+        <div class="modal fade" id="modalAtend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog wm-sign-in" style="padding:30px; color:#666; background-color:#f2f2f2;">
+              <a type="button" class="close" data-dismiss="modal" style="display:block; text-decoration:none; cursor:pointer; font-size:30px; position:relative; float:right;top:-12px; height:20px;">×</a>
+              <div class="clearfix">
+                  
+                <div class="title">Atendimento</div>
+                <div class="label" id="msg_atend">Selecione as opções que melhor poderão te atender.</div>
+                <div id="alert-signin-error" class="alert alert-danger alert-dismissable hide"><span class="icon-wm-warning"></span><span id="message">Usuário ou senha inválidos.</span></div>
+                <div class="sign-in-wrapper">
+                    
+                         
+                    
+                <form name="contato" id="selectProds">
+
+                    <input type="text" name="formType" id="formType" value="1" style="display: none;">
+                    <input type="text" name="inputnome" id="nomeInput" value="<?php echo $nome_post; ?>" placeholder="Nome" class="input-box" style="padding-left:8px;">
+                    <input type="text" name="e-mail" id="inputEmail" value="<?php echo $email_post; ?>" placeholder="E-mail" class="input-box" style="padding-left:8px;">
+
+                    <select class="input-box" style="padding-left:8px;" name="ocorrencia_opt" id="ocorrencia_opt">
+                        <option value="0" selected>Tipo de solicitação</option>
+                        <option value="0"></option>
+                        <option value="1" <?php echo setForm(1); ?>>Entrega</option>
+                        <option value="2" <?php echo setForm(2); ?>>Cancelamento</option>
+                        <option value="3" <?php echo setForm(3); ?>>Pedido</option>
+                        <option value="4" <?php echo setForm(4); ?>>Pagamentos e Reembolsos</option>
+                        <option value="5" <?php echo setForm(5); ?>>Troca e Devolução</option>
+                        <option value="6" <?php echo setForm(6); ?>>Outros assuntos</option>
+                    </select>
+                    
+                    <div class="clear"></div>
+                    
+                    <div style="" id="numPedidoSelect" style="margin-bottom: 10px; padding-top: 10px;"></div>
+                    
+                    <div class="clear"></div>
+                    
+                    <div id="numPedidoItens" ></div>
+                    
+                    <div class="clear"></div>
+
+                    <div id="grupoOutrosAssuntos" >                 
+                        <select class="input-box" style="padding-left:8px;" name="outro_assunto" id="outro_assunto" style="display: none;">
+                            <option value="0" selected>Assunto</option>
+                            <option value="0"></option>
+                            <option value="1">Dúvidas sobre o site</option>
+                            <option value="2">Dúvidas sobre o preço</option>
+                            <option value="3">Dúvidas sobre produtos</option>
+                            <option value="4">Lojas físicas</option>
+                            <option value="5">Problemas com meu cadastro</option>
+                        </select>
+                    </div>
+
+
+                    <div id="grupoAssuntoItens" style="margin-bottom: 10px;">                 
+                        <select class="input-box" style="padding-left:8px;" name="outro_assunto" id="assuntoItens">
+                            <option value="0" selected>Selecione um Assunto</option>
+                            <option value="0"></option>
+                            <option value="1">2° via de Boleto</option>
+                            <option value="2">Cobrança indevida</option>
+                            <option value="3">Confirmação de pagamento Boleto</option>
+                            <option value="4">Problema para ultilizar meu vale</option>
+                            <option value="5">Status de meu Reembolso/Estorno</option>
+                        </select>
+                    </div>
+
+                    <textarea placeholder="Ajude-nos a entender" class="form-element textarea-element" id="inputTxt" style="height: 150px;  margin-bottom: 10px;"></textarea>
+
+                    <button class="btn btn-primary" ng-click="contatoEnvia()" style="position: relative; float: left; margin-right: 12px;">Enviar</button>
+                
+                    <div style="height: 20px; padding-top: 10px;">
+                                    <span id="messageContato" style="font-size: 11px; font-weight: bold; color: #f00;"></span>
+                                    <div ng-show="loadingShow" id="loadingContato" class="loading" style="height: 18px; width: 18px;position: relative; float: left;"></div>
+                    </div>
+                        
+                </form>
+                </div>
+                
+                <div style=" margin: 0 auto; text-align: center; padding: 12px; line-height:40px; display: none;" id="msgEnviada">
+
+    Informações enviadas com sucesso!<br>
+
+<a href="" class="btn btn-primary" id="btnVoltarSite">Voltar para o site</a>
+
+</div>
+                
+                
+                
+              </div>
+          </div>
+        </div>
+
+
+<?php } ?>
+
+
+</span>
+
+<?php
+$open_modal = 0;
+if (isset($_GET['open'])) {
+
+    $open_modal = $_GET['open'];
+} else {
+
+    $open_modal = '0';
+}
+?>
+<script>
+
+    //login config#####################################
+    angular.module('ui.bootstrap.app').controller('modalAtendimento', function ($scope, $http) {        
+        
+    var modalOpen = <?php echo $open_modal; ?>;
+        
+    $scope.contatoButton = function () {
+            //$scope.contatoModal = !$scope.showModal;
+            document.getElementById("selectProds").reset();
+        };
+
+        if (modalOpen == 1) {
+
+            //$scope.contatoModal = !$scope.showModal;
+            $('#modalAtend').modal('show');
+        }
+
+        $scope.contatoEnvia = function ($rootScope) {
+
+            //#tipo de formulario################   
+            var tipoForm = $('input#formType').val();
+            var nomeInput = $('input#nomeInput').val();
+            var inputEmail = $('input#inputEmail').val();
+            var tipoAssunto = $('select#ocorrencia_opt').val();
+            var inputSubject = $('select#outro_assunto').val();
+            var inputTxt = $('textarea#inputTxt').val();
+          
+
+            $scope.loadingShow = true;
+            document.getElementById("messageContato").textContent = "";
+
+
+            if (tipoForm == 0) {
+
+                var pessoa = '0';
+
+                var request = $http({
+                    method: "post",
+                    url: "/contato",
+                    data: {
+                        tipoContato: tipoForm,
+                        tipoAssunto: tipoAssunto,
+                        inputNome: nomeInput,
+                        inputEmail: inputEmail,
+                        inputSubject: inputSubject,
+                        inputTxt: inputTxt,
+                        pessoa: pessoa,
+                    },
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+
+
+            } else if (tipoForm == '1') {
+                
+                var inputSubject = $('select#assuntoItens').val();
+                
+                var ocorrOpt = $('select#ocorrencia_opt').val();
+                var produtoId = $('input[name=prodChamado]:checked', '#selectProds').val();
+                var pedidoNum = $('select#pedidoNum').val();
+                
+                
+                
+                if(tipoAssunto == 6){
+                    
+                    var produtoId = '0';
+                    var pedidoNum = '0';
+                }
+
+
+                var request = $http({
+                    method: "post",
+                    url: "/contato",
+                    data: {
+                        tipoContato: tipoForm,
+                        tipoAssunto: tipoAssunto,
+                        inputNome: nomeInput,
+                        inputEmail: inputEmail,
+                        inputSubject: inputSubject,
+                        inputTxt: inputTxt,
+                        produtoId: produtoId,
+                        pedidoNum: pedidoNum,
+                    },
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            }
+
+
+            /* Check whether the HTTP Request is successful or not. */
+            request.success(function (data) {
+
+                $scope.loadingShow = false;
+                document.getElementById("messageContato").textContent = data;
+
+                var log_command = angular.fromJson(data);
+
+                if (log_command == true) {
+
+                    document.getElementById("messageContato").style.display = 'none';
+                   
+                   
+                   $('div#msg_atend').hide();
+                   $('form#selectProds').hide();
+                   $('div#msgEnviada').fadeIn('fast').show();                   
+                   $('a#btnVoltarSite').click(function(){
+                      
+                      window.location.href = window.location.pathname;
+                      
+                  });
+                   
+            
+            
+                }
+
+                alert(cad_command);
+                //window.location.assign("/")
+            });
+            request.error(function (data) {
+                $scope.loadingShow = false;
+                //document.getElementById("messageContato").textContent = 'Um erro ocorreu durante o processamento do login!';
+
+            });
+        }
+
+
+
+
+
+
+    });
+
+
+
+
+    $(window).load(function () {
+
+        $('div#loadTest').fadeOut('fast');
+
+    });
+
+    $(document).ready(function () {
+
+
+        //#Select da ocorrencia#############################
+        $("select#ocorrencia_opt").change(function () {
+
+
+            var ocorrenciaValue = $('select#ocorrencia_opt').val();
+
+            if (ocorrenciaValue != '6') {
+
+                if ($('a#loginOpen').length) {
+
+                    $('#modalAtend').modal('hide');
+                    document.getElementById('loginOpen').click();
+                }
+            }
+
+
+
+            if (ocorrenciaValue != '6') {
+
+                $('select#outro_assunto').hide();
+                $('div#numPedidoSelect').fadeIn('fast').show();
+                $('div#grupoAssuntoItens').fadeIn('fast').show(function () {
+                    $('div#numPedidoSelect').load('/pedidos');
+                });
+                $('div#numPedidoItens').fadeIn('fast').show();
+            }
+
+            if (ocorrenciaValue == '6') {
+                //numPedidoItens
+                $('select#outro_assunto').fadeIn('fast').show();
+                $('div#numPedidoSelect').hide();
+                $('div#grupoAssuntoItens').hide();
+                $('div#numPedidoItens').hide();
+            }
+
+        });
+        //#Fecha Select da ocorrencia#############################
+
+
+    });
+
+    $("select#outro_assunto").change(function () {
+
+        var optionValue = $('select#outro_assunto').val();
+
+        //alert(optionValue );
+    });
+</script>

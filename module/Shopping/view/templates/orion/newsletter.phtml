@@ -1,0 +1,88 @@
+<div class="banners-bar" id="nesletterBar">
+    <ul class="banner-list">
+    <li class="banner-item">
+        <a href="" class="newsletter-banner " ng-click="open('sm', '3')">
+            <img src="/images/banner-melhores-ofertas.png" alt="Cadastre-se e receba as Melhores Ofertas" width="260" height="50">
+        </a>
+    </li>
+
+</ul> 
+</div>
+<script>
+    angular.module('ui.bootstrap.app').controller('newsLetterForm', function ($scope, $http) {
+        $scope.newsLetter = function ($rootScope) {
+            //  document.getElementById("messageCadastrar1").textContent = "";
+            $scope.loadingShow = true;
+            
+            var request = $http({
+                method: "post",
+                url: "/users/newsletter",
+                data: {
+                    nome: $scope.nome,
+                    email: $scope.email
+                },
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+            /* Check whether the HTTP Request is successful or not. */
+            request.success(function (data){
+
+                $scope.loadingShow = false;
+                document.getElementById("messageExec").textContent = data;
+                
+                var cad_command = angular.fromJson(data);
+
+                if (cad_command === true) {                    
+                    $scope.loadingShow = false;                   
+                    document.getElementById("messageExec").style.display = 'none';
+                    $('div#nwlForm').hide();                   
+                    $('div#nwlSuccess').fadeIn('fast');                    
+                }
+            });
+            request.error(function (data) {
+                $scope.loadingShow = false;
+            });
+        }
+    });
+</script>
+
+
+<script type="text/ng-template" id="modalNewsletter.html">
+
+<div id="newsletter-modal" class="newsletter-modal" style="padding:30px; color:#666; background-color:#f2f2f2;">
+<a title="Fechar" type="button" class="close" ng-click="cancel()" style="display:block; text-decoration:none; cursor:pointer; font-size:30px; position:relative; float:right; top:-16px; left:12px; height:20px;">×</a>
+   <div class="newsletter-form-content" id="nwlForm">
+      <div class="title"><i class="wm-icon icon-mail"></i>
+        <span class="slim-text">Cadastre-se e receba as</span><span class="strong-text">Melhores Ofertas</span></div>
+      <hr>
+      <p class="newsletter-info">Preencha com seu nome e e-mail e aguarde nossas ofertas</p>
+     
+          <form class="newsletter-form">
+                        <div class="input-line">
+                            <input id="newsletterClientName" type="text" ng-model="nome" class="input-box newsletter-client-name" maxlength="23" name="newsletterClientNome" placeholder="Seu nome">
+                        </div>
+
+                        <div class="input-line"  ng-controller="newsLetterForm">
+                            <input id="newsletterClientEmail" ng-model="email" type="text" class="input-box newsletter-client-email" maxlength="100" name="newsletterClientEmail" placeholder="Seu e-mail">
+                            <button id="newsletterButtonSend" class="btn btn-send btn-warning" type="submit" ng-click="newsLetter()">
+                                <span class="icon icon-arrow-right"></span>
+                            </button><br>
+                            <div id="messageExec" style="font-size: 11px; font-weight:bold; color: #f00; text-align:center; padding-top:8px;"></div>
+                            
+                        </div>
+                <div ng-show="loadingShow" id="loadingContato" class="loading" style="height: 18px; width: 18px;position: relative; float: left; display:block;"></div>
+                    </form>
+     
+   </div>
+   
+   <div class="newsletter-success" id="nwlSuccess" style="display:none">
+      <i class="icon-wm-ok"></i>
+      <p class="success-title">E-mail cadastrado com sucesso ;)</p>
+      <p class="success-text">Em breve você receberá novidades e promoções. </p>
+   </div>
+  
+</div>
+
+</script>
+
+
+<!--/Banner bar##########-->

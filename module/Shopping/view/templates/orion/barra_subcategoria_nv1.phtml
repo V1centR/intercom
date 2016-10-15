@@ -1,0 +1,206 @@
+<aside class="menu-left">
+
+    <div class="menu-container">
+
+        <a class="arrow-menu" href="#"><span class="icon-arrow"></span></a>
+        <div class="menu-title tvs clearfix">
+            <div class="left-menu-item"><span class="menu-name"><?php echo $cat_list['nome']; ?></span></div>
+        </div>
+        
+        <?php
+       
+        //print_r($_SERVER);
+         //echo $actual_link = $_SERVER['REQUEST_URI'].$_SERVER['REQUEST_URI'];
+        
+       $currentItem2 = '';
+        
+            foreach ($container_categoria as $container_value) {
+               
+                 $currentItem = $container_value['caracteristicaId'];
+              
+                if($currentItem != $currentItem2 ){
+                     
+                     $currentItem2 = $container_value['caracteristicaId'];
+                    
+                    
+                     echo ' 
+<a class="arrow-menu  open-sub-menu '.$container_value['caracteristicaId'].'" href="#" data-menu="'.$container_value['caracteristicaId'].'"><span class="icon-arrow"></span></a>                    
+
+        <div class="menu-title '.$container_value['caracteristicaId'].'">
+            <div class="left-menu-item"><span class="menu-name">'.$container_value['caracteristicaNome'].'</span></div>
+                
+        </div>';
+                
+             echo '<ul class="sub-menu '.$container_value['caracteristicaId'].'  clearfix">';
+            
+              foreach ($container_categoria as $options) {              
+                 
+                  if($options['caracteristicaId'] == $container_value['caracteristicaId']){
+                      
+                      #função ##########################                      
+                      $urlConfig = gerUrl(strtolower(urlencode($options['caracteristicaNome'])), $options);                    
+                      ##################################
+                      
+                       echo '<li class="sub-menu-item">
+                           <a class="sub-menu-link" href="'.$urlConfig[0].'">
+                            <span class="checkbox '.$urlConfig[1].'"></span>
+                      <span class="menu-name">'.$options["opcao"].'</span></a>
+                          <span class="menu-count">99</span></li>';
+                      
+                  }
+               }
+              echo '</ul>';
+            
+             //$currentItem = false;
+                    
+                }
+                
+                
+                
+               
+              
+               // echo ' <li class="sub-menu-item"><a class="sub-menu-link" href="/categoria-sub"><span class="menu-name">' . $container_value['caracteristicaNome'] . '</span></a><span class="menu-count"></span></li>';
+            }
+            
+          // echo $_SERVER['QUERY_STRING'];
+          // print_r($_GET);
+           
+            
+            
+            function gerUrl($caracterNome, $caracterId){
+                
+                
+                $caracterId = $caracterId['idMarca'];
+                $urlReady = '?';
+                $checked = '';
+                $dataIn = array($caracterNome => $caracterId);
+                $filtro = array();
+                $keyData = '';
+                $joinStrKey = '';
+                $t = 0;
+                $t2 = 0;
+                $key1 = 0;
+                $key2 = 0;
+              //  print_r($dataIn);
+                
+                if(isset($_GET['set'])){
+                    
+                    $_GET['set'] = 'filter';
+                }
+                
+                
+                foreach($_GET as $keyMaster => $keyDataUrl){
+                    
+                    echo $keyMaster.'=>'.$keyDataUrl.'<br>';
+                    
+                    $filtro += array($keyMaster => explode("--", $_GET[$keyMaster]));
+                  
+                    //$filtro = array_unique($filtro);                    
+                    
+                    
+                    if(array_key_exists($caracterNome, $filtro[$keyMaster])){
+                        
+                        if($keyDataUrl == $caracterId){
+                        
+                            array_push($filtro[$keyMaster],$caracterId);
+                        }
+                    }
+                 
+                }
+                
+                print_r($filtro);
+                
+              
+                #desmembrar array para URL#####
+                 foreach ($filtro as $key1 => $data) {
+                   $t = 0;
+                   if($t2 == 0){$joinStrKey = '?';}else{$joinStrKey = '&';}
+                   
+                   
+                   
+                   $key2 .= $joinStrKey.$key1.'=';
+                   
+                   foreach($data as $setParam){
+                       if($t == 0){$joinStr = '';}else{$joinStr = '--';}
+                     
+                     $key2 .=  $joinStr.$setParam;
+                     $t++;
+                     $t2++;
+                   }                   
+               }
+                
+               
+               $urlReady .= $key2;
+                
+              //  echo $urlReady;
+               
+               return array($urlReady,$checked);
+                
+            }
+            
+            
+            ?>
+
+        <a class="arrow-menu open-sub-menu" href="#" data-menu="prices-range"><span class="icon-arrow"></span></a>
+        <div class="menu-title prices-range clearfix">
+            <div class="left-menu-item"><span class="menu-name">Faixa de preço</span></div>
+        </div>
+        <ul class="sub-menu prices-range clearfix">
+            
+            
+            <?php
+            
+        
+                        
+        $this->fpreco = $faixa_preco;
+                        
+                        
+        $inicio = $this->fpreco[0]['preco_min'];
+        $max = $this->fpreco[0]['preco_max'];
+        
+        
+        $media = $inicio+$max;
+        $media = $media/4;
+        
+        $ranges = range($inicio, $max, $media);
+        $count = count($ranges);
+        $time = 0;
+     
+        
+        #exibição########################################
+          
+            
+            
+            echo ' <li class="sub-menu-item active ate-r-1000-0"><a class="sub-menu-link" href="" title="Até R$1000" data-name="ate-r-1000-0"><span class="checkbox"></span><span class="menu-name">Até '.number_format($ranges[0], 2, ',', '.').'</span></a><span class="menu-count"> #</span></li>';
+            
+            $keys = array_keys($ranges);       
+             foreach(array_keys($keys) AS $k ){
+
+              if($time < $count-1){
+
+                 $this_value = $ranges[$keys[$k]];
+                 $nextval = $ranges[$keys[$k+1]];
+
+                //   echo 'De '.number_format($this_value, 2, ',', '.').' até '.number_format($nextval, 2, ',', '.').'<br>';
+                   
+                   echo '<li class="sub-menu-item active de-r-1000-a-r-2000-1"><a class="sub-menu-link" href="" title="De R$1000 a R$2000" data-name="de-r-1000-a-r-2000-1"><span class="checkbox"></span><span class="menu-name">'
+                   . 'De '.number_format($this_value, 2, ',', '.').' até '.number_format($nextval, 2, ',', '.').'</span></a><span class="menu-count"> #</span></li>';
+              }         
+              $time++;
+            }
+
+           // echo 'Acima de '.number_format(end($ranges), 2, ',', '.').'';
+            echo '<li class="sub-menu-item active acima-de-r-6000-4"><a class="sub-menu-link" href="" title="Acima de R$6000" data-name="acima-de-r-6000-4"><span class="checkbox"></span><span class="menu-name">'
+            . 'Acima de '.number_format(end($ranges), 2, ',', '.').'</span></a><span class="menu-count"> #</span></li>';
+        ###################################################
+        
+            
+            
+           
+            
+            ?>
+            
+          
+        </ul>
+    </div>
+</aside>

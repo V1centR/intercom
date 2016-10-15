@@ -1,0 +1,84 @@
+<style>
+    
+    .formatacao{ color: #666; font-size: 14px;}
+    
+</style>
+
+<div class="footer-institucional clearfix">
+
+    <div class="institucional-store-locator">
+
+
+        <!--######################-->
+        <strong class="institucional-title">CNPJ</strong>
+        <p class="store-locator-description"> <?php echo $loja_info['cnpj'];?></p>       
+        <!--######################-->
+
+        <!--######################-->
+        <strong class="institucional-title"> <span class="store-locator-icon"></span>Endereço</strong>
+        <p class="store-locator-description"> <?php echo $loja_info['endereco'].' <br> Bairro: '.$loja_info['bairro'].' <br> '.$loja_info['municipio'].' - '.$loja_info['uf'];?></p>       
+        <!--######################-->
+
+
+        <!--######################-->
+        <strong class="institucional-title"><span class="telesales-icon"></span>Televendas</strong>
+        <p style="font-weight: bold; font-size: 18px;">
+            <span class="prefix"></span>
+                
+                <?php 
+            
+                $prefixo = substr($loja_info['telefone'], 0,8);
+                $sufixo =  substr($loja_info['telefone'], -4);                        
+                $telefone = $prefixo.'-'.$sufixo;
+                echo $telefone;
+            ?>
+        </p>
+        <!--######################-->
+
+
+    </div>
+
+
+    <div class="institucional-more-about">
+
+        <strong class="institucional-title"><?php //echo $configuracoes[0]['nome']; ?></strong>
+
+        <nav class="more-about-column">
+
+            <ul class="list_itens">
+
+                <?php
+                
+               
+                foreach ($rodape_info as $foot_info) {
+                    ###################################
+                    $controller_id = 'infoList'.$foot_info['id'];
+                    $setModal = $foot_info['id'];
+                    $openModal = 'openModal'.$foot_info['id'];
+                    
+                    echo '<span>';
+                    echo '<li class="more-about-item">'
+                    . '<a type="button" href="" ng-click="open(\'lg\', \'5'.$setModal.'\')"><span class="pin-icon"></span>' . $foot_info['nome'] . '</a></li>';
+                   
+                   
+                    echo '</span>';
+                    
+                    
+                    echo '<script type="text/ng-template" id="modalInfo5'.$setModal.'.html">
+                        <div class="wm-sign-in clearfix" style="background-color:#fff;">
+                            <a title="Fechar" type="button" class="close" ng-click="cancel()" style="display:block; text-decoration:none; cursor:pointer; font-size:30px; position:relative; float:right; top:-8px; height:20px;">×</a>
+                               <div class="title">'.$foot_info['nome'].'</div>
+                               <div id="alert-signin-error" class="alert alert-danger alert-dismissable hide signup-error"><span class="icon-wm-warning"></span>&nbsp;<span id="message">Ops! Tente Novamente.</span></div>
+                               <div class="sign-in-wrapper">
+                               '.nl2br($foot_info['texto']).'
+                               </div>    
+                            </div></script>';
+#####################################
+                }
+                ?>
+
+            </ul>
+        </nav>
+    </div>
+</div>
+

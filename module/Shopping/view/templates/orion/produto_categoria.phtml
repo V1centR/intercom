@@ -1,0 +1,360 @@
+<!--Inicio Slide prateleira categoria ####################-->
+
+<span ng-controller="cartActions">
+    <?php
+    $contador = 1;
+    $switch_ = '';
+    $set_banner = 1;
+    
+    //print_r($banners);
+    // print_r($get_produtos);
+    //print_r($sub_cat[1]);
+    
+   
+    
+
+    foreach ($categorias as $getCat) {
+        ?>
+
+        <script>
+            $(window).load(function() {
+
+            $('div#loadProd<?php echo $contador; ?>').fadeOut('fast').remove();
+                    $('div#load<?php echo $contador; ?>').fadeIn('slow');
+            });</script>
+        <div class="loading" style="height: 260px; background-color: #fff;" id="loadProd<?php echo $contador; ?>"></div>
+        <div class="home-list clearfix" id="load<?php echo $contador; ?>" style="display: none;">
+            <nav class="left-nav">
+                <ul class="menu-items">
+                    <h2 class="menu-title">
+                        <a class="menu-title-link" href="/categoria<?php echo $getCat['url']; ?>"><span><?php echo $getCat['nome']; ?></span></a>
+                    </h2>
+    <?php
+    $change = '';
+    $int = 0;
+    $int_maisvc = 1;
+    //print_r($get_produtos);
+
+    $id_categoria = $getCat['id'];
+
+    foreach ($sub_cat[$id_categoria] as $data_sub) {
+
+        $dados_item = explode(';', $data_sub);
+        $item_nome = trim($dados_item[0]);
+        $url_item = $dados_item[1];
+
+
+        $test_title = strlen($item_nome);
+
+        if ($test_title > 22) {
+            $item_nome = substr($item_nome, 0, 22) . '...';
+        }
+
+
+        if ($int < 3) {
+
+            echo '<li><a class="menu-left-link" href="/categoria-sub' . $getCat['url'] . $url_item . '">' . $item_nome . '</a></li>';
+        }
+
+
+
+        $int++;
+        $int_maisvc++;
+    }
+
+
+
+    foreach ($get_produtos as $sub_item) {
+
+        if (($sub_item['cat2_id'] == $getCat['id']) && trim($sub_item['categoria_nome']) != $change) {
+
+            if ($int < 3) {
+
+                //  echo '<li><a class="menu-left-link" href="/categoria-sub'.$getCat['url'].'">'.$sub_item['categoria_nome'].'</a></li>';                              
+            }
+
+            $int++;
+            $change = trim($sub_item['categoria_nome']);
+        }
+    }
+    ?> 
+
+                </ul>
+
+
+                <span class="menu-item-left last">
+
+    <?php
+    if ($int_maisvc >= 5) {
+
+
+
+        echo '<a class="menu-left-link" href="/categoria' . $getCat['url'] . '">Veja mais opções</a>';
+    } else {
+        echo '';
+    }
+    ?>
+
+
+                </span>
+
+
+                <span class="menu-item-left last">
+                </span>
+            </nav>
+
+            <!--Horizontal Wrap###############-->
+            <div class="shelf-home shelf-container shelf-horizontal  two-rows">
+                <div class="shelf-itens carousel-shelf-horizontal arrow-big clearfix">
+
+
+
+
+    <?php
+    
+    $limit_tests = 0;
+    foreach ($categoria_bar as $itens) {
+
+
+        foreach ($itens as $data_produto) {
+
+
+
+            if (($getCat['id'] == $data_produto['id']) || ($getCat['id'] == $data_produto['nv1_id'])) {
+
+
+
+
+
+                $preco_unit = $data_produto['precounitario'];
+                $preco_promocional = $data_produto['precopromocional'];
+
+
+
+                if ($preco_promocional == 0.00) {
+
+                    $preco_normal = number_format(substr($preco_unit, 0, -3), 0, ",", ".");
+                    $preco_normal_dec = substr($preco_unit, -2);
+                    $hide = 'style="visibility:hidden"';
+                } else {
+
+                    $preco_normal = number_format(substr($preco_promocional, 0, -3), 0, ",", ".");
+                    $preco_normal_dec = substr($preco_promocional, -2);
+                    $hide = '';
+                }
+
+
+                $preco_promo_format = number_format($preco_unit, 2, ",", ".");
+                ?>
+                                <!--item #########################-->
+                                <div class="shelf-item with-buy-box clearfix" data-available="true" data-hastree="" data-
+
+                                     skipservice="true">
+
+                                    <figure><a href="/produto/<?php echo $data_produto['prod_id']; ?>/<?php echo filterUrl($data_produto['prod_nome'], '-') ?>"><img class="lazyOwl" data-
+
+                                                                                                                                                                   src="images/img<?php echo $data_produto['img_id'] . '.' . $data_produto['ext']; ?>" width="130" 
+
+                                                                                                                                                                   height="130"></a>
+                                    </figure>
+
+                                    <div class="inner-content">
+                                        <div class="left-align">
+                                            <a href="/produto/<?php echo $data_produto['prod_id']; ?>/<?php echo filterUrl($data_produto['prod_nome'], '-') ?>">
+                                                <span class="product-title" style="height:50px;"><?php echo $data_produto['prod_nome']; ?></span>
+                                                <p class="shelf-price"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                    <span class="payment-price-old">                
+                                                        <span class="label" <?php echo $hide; ?>>De: </span>
+                                                        <del <?php echo $hide; ?>>R$ <?php echo $preco_promo_format; ?></del>
+                                                    </span>
+
+                                                    <span class="payment-sell">
+                                                        <span class="label">Por</span><span class="payment-currency">R$ </span>
+                                                        <meta itemprop="priceCurrency" content="BRL">
+                                                        <span class="payment-price" itemprop="price">
+                                                            <strong>
+                                                                <span class="int"><?php echo $preco_normal; ?></span><span class="dec">,<?php echo $preco_normal_dec; ?></span>
+                                                            </strong></span>
+
+                                                        <span class="tooltip-container"></span>
+                                                    </span>
+
+                                                    <span class="payment-installment">
+                                                        <span class="payment-installment-amount" itemprop="itemCondition">à vista</span>
+                                                    </span></p>
+
+                                            </a>
+                                        </div>
+
+                                        <div class="stickers">
+                                            <ul>
+                                                <li class="stamp-top"></li>
+                                                <li class="stamp-middle"></li>
+                                                <li class="stamp-bottom"></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="button-container">
+
+
+
+                                            <button type="button" name="test[]" class="buy-button btn btn-success hidden" ng-click="addCart('<?php echo $data_produto['prod_id']; ?>')" >
+                                                <span class="icon"></span>
+                                            </button>
+
+
+                                        </div>
+
+
+                                        <!--ui.bootstrap.app-->
+                                    </div>
+                                </div>
+                                <!--/ item################-->
+                <?php
+            }
+        }
+    }#foreach dos itens#############                    
+
+    $switch_ = $sub_item['categoria_pri'];
+    ?>
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+                    <?php
+                  
+                    if (($set_banner % 5 == 0)){
+                       
+                        ?>
+            <!--Carroussel####################################-->
+            <div ng-controller="OtnCarousel<?php echo $set_banner; ?>" id="slides_control">
+                <div>
+                    <carousel interval="myInterval">
+                        <slide ng-repeat="slide in slides" active="slide.active">
+                            <a href="{{slide.url}}">
+                                <img ng-src="{{slide.image}}" style="margin:auto;"></a>
+                            <div class="carousel-caption">
+
+                                <p></p>
+                            </div>
+                        </slide>
+                    </carousel>
+                </div>
+
+                <script>
+                    angular.module('ui.bootstrap.app').controller('OtnCarousel<?php echo $set_banner; ?>', function ($scope) {
+                    $scope.myInterval = 5000;
+                    $scope.slides = [
+
+                    <?php
+
+                        $set = 0;
+                        foreach ($banners as $dataKey => $data_banner) {
+                            
+                          if($set < 4 && $data_banner['categoriaId'] != 0){
+                              
+                              echo '{ image: "images/img' . $data_banner['imagemId'] . '.' . $data_banner['ext'] . '", url:"' . $data_banner['url'] . '"},';                             
+                              unset($banners[$dataKey]);
+                              $set++;
+                          }  
+                          
+                         
+
+
+                        }
+                    ?>
+
+                                    ];
+                            }
+
+                           );</script>
+            </div>
+            <!--/Carroussel####################################-->
+
+
+
+        <?php
+    }
+    $set_banner++;
+    
+ 
+}
+
+function filterUrl($string, $slug = false) {
+    $string = strtolower($string);
+    $ascii['a'] = range(224, 230);
+    $ascii['e'] = range(232, 235);
+    $ascii['i'] = range(236, 239);
+    $ascii['o'] = array_merge(range(242, 246), array(240, 248));
+    $ascii['u'] = range(249, 252);
+    $ascii['b'] = array(223);
+    $ascii['c'] = array(231);
+    $ascii['d'] = array(208);
+    $ascii['n'] = array(241);
+    $ascii['y'] = array(253, 255);
+    foreach ($ascii as $key => $item) {
+        $acentos = '';
+        foreach ($item AS $codigo)
+            $acentos .= chr($codigo);
+        $troca[$key] = '/[' . $acentos . ']/i';
+    }
+    $string = preg_replace(array_values($troca), array_keys($troca), $string);
+
+    if ($slug) {
+
+        $string = preg_replace('/[^a-z0-9]/i', $slug, $string);
+
+        $string = preg_replace('/' . $slug . '{2,}/i', $slug, $string);
+        $string = trim($string, $slug);
+    }
+    return $string;
+}
+?>
+
+
+    <script>
+        angular.module('ui.bootstrap.app').controller('cartActions', function ($scope, $http) {
+
+        $scope.addCart = function (data) {
+
+        $scope.prod_id = data;
+                $('#num_itens').css('display', 'inline-block');
+                var request = $http({
+                method: "post",
+                        url: "/cart/add",
+                        data: {
+                        prod_id: $scope.prod_id,
+                        },
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+                /* Check whether the HTTP Request is successful or not. */
+                request.success(function (data) {
+                $("div#cart").fadeIn("fast").show();
+                        $("div#cart").load("/cart/queryCart");
+                        setTimeout(function(){
+
+                        if ($('div#showCart').is(":hover")) {
+
+                        $("div#showCart").mouseleave(function () {
+                        $("div#cart").fadeOut("fast");
+                        });
+                        } else {
+
+                        $("div#cart").fadeOut("slow");
+                        }
+
+                        }, 4000);
+                });
+                request.error(function (data) {
+                document.getElementById("messageCadastrar1").textContent = "Houve um problema [" + data + "]";
+                });
+        };
+        });    </script>
+
+<!--/Slide prateleira categoria####################-->

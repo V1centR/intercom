@@ -1,0 +1,119 @@
+<?php
+use \Shopping\Defaults\Services;
+?>
+<div class="shelf-container" ng-controller="mvendActions">
+    
+    
+        <h2 class="shelf-title">Mais vendidos</h2>
+        <ul class="shelf-itens clearfix  two-rows">   
+           
+    <?php
+   
+    $setUrl = new Services();
+    
+    
+    foreach($mais_vendidos as $data_vendidos){
+        
+        
+        $preco_unit = $data_vendidos['precounitario'];
+        $id_produto = $data_vendidos['id'];
+        $url_seo = $setUrl->formatUrl($data_vendidos['nome'],'-');
+        $link_prod = "/produto/".$id_produto."/".$url_seo;
+                   $preco_promo = substr($data_vendidos['precopromocional'], 0, -3);
+                   $preco_promo_dec = substr($data_vendidos['precopromocional'], -2);               
+                    
+                    if(empty($preco_promo)){
+                        $preco_promo = substr($preco_unit, 0, -3);
+                        $preco_promo_dec = substr($preco_unit, -2);
+                        $hide = 'style="display:none"';
+                    } else {
+                        $hide = '';                
+                    }
+        
+        
+        
+        echo ' <li class="shelf-item item-0 with-buy-box" itemprop="itemListElement" itemscope itemtype="http://schema.org/Product">
+                <figure><a href="'.$link_prod.'" title="" itemprop="url"><img src="/images/img'.$data_vendidos['imagemId'].'.'.$data_vendidos['ext'].'" class="lazy-image loading" alt="" itemprop="image" width="220" height="220"></a></figure>
+                <div class="inner-content">
+                    <a href="'.$link_prod.'" class="product-link">
+                        <span class="product-title" itemprop="name">'.substr($data_vendidos['nome'], 0 , 80).'</span>
+                        <p class="shelf-price"  itemprop="offers">
+                            <span class="payment-price-old">
+                            
+<span class="label"  '.$hide.'>De: </span><del  '.$hide.'>R$ '.$preco_unit.'</del></span>
+                            <span class="payment-sell">
+                                <span class="label">Por</span><span class="payment-currency">R$ </span>
+                                <meta itemprop="priceCurrency" content="BRL">
+                                <span class="payment-price" itemprop="price"><strong><span class="int">'.$preco_promo.'</span><span class="dec">,'.$preco_promo_dec.'</span></strong></span><span class="tooltip-container"></span>
+                            </span>
+                            <span class="payment-installment"><span class="payment-installment-amount" itemprop="itemCondition">10x <span>de </span><span class="payment-installment-currency"></span><span class="payment-installment-price">R$ 121,41 </span><span class="payment-installment-condition">sem juros</span></span></span>
+                        </p>
+                    </a>                  
+                </div>
+                
+
+                  <div class="button-container">
+                    <button type="button" class="buy-button btn btn-success hidden" ng-click="addCart('.$id_produto.')" >
+                    <span class="icon"></span>
+                    </button>
+                  </div>
+
+            </li>';
+        
+        
+    }
+    
+    
+    
+    ?>
+                      
+</ul>
+
+<script>
+   
+        angular.module('ui.bootstrap.app').controller('mvendActions', function ($scope, $http) {
+             
+                $scope.addCart = function (data) {
+              
+                  $scope.prod_id = data;
+                 
+                  $('#num_itens').css('display', 'inline-block');                 
+                 
+                    var request = $http({
+                        method: "post",
+                        url: "/cart/add",
+                        data: {
+                            prod_id: $scope.prod_id,
+                            
+                        },
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    });                    
+                    
+                    /* Check whether the HTTP Request is successful or not. */
+                    request.success(function (data) {                       
+                        $( "div#cart" ).fadeIn( "fast" ).show();                        
+                        $("div#cart").load("/cart/queryCart");
+                        
+                        
+                        setTimeout(function(){
+                            
+                             if($('div#showCart').is(":hover")) {
+                                 
+                                 $("div#showCart").mouseleave(function () {
+                                    $( "div#cart" ).fadeOut( "fast" );
+                                 });  
+                             } else {
+                                 
+                                 $( "div#cart" ).fadeOut( "slow" );
+                             }
+                             
+                         },4000);
+                    });
+                    request.error(function (data) {
+                         
+                    });
+                };
+            });
+    
+    </script>
+</div>

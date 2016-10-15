@@ -1,0 +1,55 @@
+<?php
+
+//print_r($banners);
+
+echo $id_categoria;
+
+$set_banner = 1;
+?>
+<!--Carroussel####################################-->
+<div ng-controller="OtnCarousel<?php echo $set_banner; ?>" id="slides_control">
+    <div>
+        <carousel interval="myInterval">
+            <slide ng-repeat="slide in slides" active="slide.active">
+                <a href="{{slide.url}}">
+                    <img ng-src="{{slide.image}}" style="margin:auto;"></a>
+                <div class="carousel-caption">
+                   
+                    
+                </div>
+            </slide>
+        </carousel>
+    </div>
+   
+<script>
+angular.module('ui.bootstrap.app').controller('OtnCarousel<?php echo $set_banner; ?>', function ($scope) {
+ $scope.myInterval = 5000;
+ $scope.slides = [
+	        
+	        <?php        
+	           
+	            foreach ($banners as $data_banner) {                
+	             
+	                if($data_banner['categoriaId'] == $set_banner){
+	                    //echo '{ image: "images/img'.$data_ban->getImagemId()->getId().'.'.$data_ban->getImagemId()->getExt().'"},';
+	                   // echo '{ image: "images/img'.$data_banner['imagemId'].'.'.$data_banner['ext'].'", url:"'.$data_banner['url'].'"},';
+                            
+	                    
+	                }
+	            }
+	        ?>       
+	       
+	    ];
+            
+            }
+            
+            );
+ 
+
+
+</script>
+</div>
+<!--/Carroussel####################################-->
+
+
+

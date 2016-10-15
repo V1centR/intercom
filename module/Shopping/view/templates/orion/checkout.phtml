@@ -1,0 +1,206 @@
+<?= $this->render('orion/header'); ?>
+<link rel="stylesheet" href="https://www2.walmart.com.br/checkout/content/styles/fb55bbff.cart.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+
+<body class="webstore department" class="ng-cloak">
+    
+    <script>angular.module('ui.bootstrap.app', []);</script>
+    <?= $this->render('orion/b_principal'); ?>    
+    <?= $this->render('orion/barra_categoria'); ?>
+    <div class="wrapper">
+        <!-- Main content -->
+        <section class="main-content my-cart"  ng-controller="cartForm" ng-cloak>
+            <div id="sessao_checkout"><div class="page-title clearfix" id="page_header">
+                    <?php
+                        if (@$_SESSION['carrinho']) {
+                                    
+                                    $num_itens = array_sum($_SESSION['carrinho']);
+                                    $style = 'style="display:inline"';
+    
+                                } else {
+                                     $num_itens = '';
+                                     $style = '';
+                                }                    
+                    ?>                 
+                    <h2> Meu carrinho<span class="my-cart-header-items"> (<?php echo $num_itens; ?> itens)</span></h2>
+                    <div class="header-btn-wrapper"><button type="button" class="btn btn-success">Finalizar compra</button></div>
+                </div>
+
+                <article class="my-cart-box" id="article">
+                    <header>
+                        <ul class="my-cart-header-wrapper clearfix">
+                            <li class="my-cart-header-item header-items">item(s)</li><li class="my-cart-header-item header-price">preço</li><li class="my-cart-header-item header-quantity">quantidade</li><li class="my-cart-header-item header-subtotal">subtotal</li>
+                        </ul>
+                    </header>
+                    
+             <span id="digital_download"></span>
+                                        
+                  <script>                
+                    $('#digital_download').html('carregando...'); // Show "Downloading..."                   
+                    $.ajax({
+                      url: "/cart/checkout"
+                    }).done(function(data) { // data what is sent back by the php page
+                      $('#digital_download').html(data); // display data
+                    });                               
+                   </script>
+                
+                </article>
+                <div class="buttons-wrapper clearfix">
+                    <span class="back-buttons-wrapper">
+                        <a class="btn-link store">Escolher mais produtos</a>
+                        <span class="or-text">ou</span>
+                    </span>
+                    <button type="button" class=" btn btn-success" id="btn-finalize-cart">Finalizar compra</button>
+                </div>
+
+                              
+            </div>
+            
+            <div class="wrapper" id="ops" style="display: none;">
+                               <!-- Main content -->
+                               <section class="main-content my-cart">
+                                  <div class="page">
+                                     <div class="empty-cart-wrapper clearfix">
+                                        <div class="empty-cart-sign">:(</div>
+                                        <article class="empty-cart-message">
+                                           <div class="empty-cart-header-message">
+                                              Ops! Seu carrinho está vazio.
+                                           </div>
+                                           <div class="empty-cart-content-message">
+                                              Para inserir produtos no seu carrinho, navegue pelo shopping ou utilize a busca do site. Ao encontrar os produtos desejados, clique no botão 
+                                              <span class="green-text">"Comprar"</span>.
+                                           </div>
+                                           <div class="back-shopping-buttons buttons-wrapper">
+                                               <a class="btn btn-primary continue-button" href="/">
+                                              Continuar comprando
+                                              </a>
+                                           </div>
+                                        </article>
+                                     </div>
+                                  </div>
+                               </section>
+                               <!-- End | Main content -->
+                            </div>
+        </section>
+        <!-- End | Main content -->
+        
+        
+       
+ 
+ <!--#########comprar junto##############-->
+ <div id="Desktop_Produto_Similares" class="clearfix similaritems shelf-container wm-recommend" data-size="10" data-display="Desktop_Produto_Similares" style="padding: 10px;">
+                  <h3 class="section-title"> <b>#</b> Aproveite para comprar junto</h3>
+                  <section class="shelf-container">
+                     <ul class="shelf-itens clearfix" itemprop="itemOffered" itemscope="" itemtype="http://schema.org/ItemList">
+                        <li class="shelf-item  item-0 with-buy-box" data-tooltip-class="left" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product" data-productid="18" data-position="0" data-available="true" data-hastree="" data-skipservice="true">
+                           <figure><a href="" title="" ph43c21p="" c="" 2="" usb,="" 3="" hdmi,="" guide="" e="" closed="" caption="" +="" 1="" Óculos="" 3d"="" itemprop="url">
+                              <img src="/images/img55.jpg" class="loading" height="220" width="220"></a>
+                           </figure>
+                           <div class="inner-content">
+                              <a href="/produto/18/tv-plasma-3d-philco-43-ph43c21p-c-2-usb-3-hdmi-guide-e-closed-caption-1-culos-3d" class="product-link">
+                                 <span class="product-title" itemprop="name" style="height:50px;">TV Plasma 3D Philco 43" PH43C21P c/ 2 USB, 3 HDMI, Guide e Closed Caption + 1 Óculos 3D</span>
+                                 <p class="shelf-price" itemprop="offers" itemscope="" itemtype="//schema.org/Offer"><span class="payment-price-old" style="visibility:hidden"><span class="label">De: </span><del>R$ 1.200,00</del></span><span class="payment-sell"><span class="label">Por</span>
+                                    <span itemprop="priceCurrency" content="BRL" class="payment-currency">R$ </span>
+                                    <span class="payment-price" itemprop="price"><strong><span class="int">1.200</span><span class="dec">,00</span></strong></span></span><span class="tooltip-container"></span><span class="payment-installment"><span class="payment-installment-amount" itemprop="itemCondition">10x <span>de </span><span class="payment-installment-currency"></span><span class="payment-installment-price">R$ 120,00 </span><span class="payment-installment-condition">sem juros</span></span></span>
+                                 </p>
+                              </a>
+                              <div class="stickers">
+                                 <ul>
+                                    <li class="stamp-top"></li>
+                                    <li class="stamp-middle"></li>
+                                    <li class="stamp-bottom"></li>
+                                 </ul>
+                              </div>
+                              <div style="opacity: 0;" class="button-container"><button type="button" class="buy-button btn btn-success" data-sku="1222680" data-product="3088224" data-seller="1" data-available="true" data-skipservice="true" data-departmentid="4791" data-categoryid="4792" data-subcategoryid="4799"><span style="opacity: 0;" class="icon"></span></button></div>
+                           </div>
+                        </li>
+                        <li class="shelf-item  item-1 with-buy-box" data-tooltip-class="left" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product" data-productid="20" data-position="1" data-available="true" data-hastree="" data-skipservice="true">
+                           <figure><a href="" title="Smart TV LED 50" 4k="" ultra="" hd="" samsung="" 50hu7000="" uhd="" upscaling="" função="" futebol="" 3="" usb="" wi-fi"="" itemprop="url">
+                              <img src="/images/img59.jpg" class="loading" height="220" width="220"></a>
+                           </figure>
+                           <div class="inner-content">
+                              <a href="/produto/20/smart-tv-led-50-4k-ultra-hd-samsung-50hu7000-uhd-upscaling-fun-o-futebol-3-usb-wi-fi" class="product-link">
+                                 <span class="product-title" itemprop="name" style="height:50px;">Smart TV LED 50" 4K Ultra HD Samsung 50HU7000 UHD Upscaling Função Futebol 3 USB Wi-fi</span>
+                                 <p class="shelf-price" itemprop="offers" itemscope="" itemtype="//schema.org/Offer"><span class="payment-price-old" style="visibility:hidden"><span class="label">De: </span><del>R$ 3.649,00</del></span><span class="payment-sell"><span class="label">Por</span>
+                                    <span itemprop="priceCurrency" content="BRL" class="payment-currency">R$ </span>
+                                    <span class="payment-price" itemprop="price"><strong><span class="int">3.649</span><span class="dec">,00</span></strong></span></span><span class="tooltip-container"></span><span class="payment-installment"><span class="payment-installment-amount" itemprop="itemCondition">10x <span>de </span><span class="payment-installment-currency"></span><span class="payment-installment-price">R$ 364,90 </span><span class="payment-installment-condition">sem juros</span></span></span>
+                                 </p>
+                              </a>
+                              <div class="stickers">
+                                 <ul>
+                                    <li class="stamp-top"></li>
+                                    <li class="stamp-middle"></li>
+                                    <li class="stamp-bottom"></li>
+                                 </ul>
+                              </div>
+                              <div style="opacity: 0;" class="button-container"><button type="button" class="buy-button btn btn-success" data-sku="1222680" data-product="3088224" data-seller="1" data-available="true" data-skipservice="true" data-departmentid="4791" data-categoryid="4792" data-subcategoryid="4799"><span style="opacity: 0;" class="icon"></span></button></div>
+                           </div>
+                        </li>
+                        <li class="shelf-item  item-2 with-buy-box" data-tooltip-class="left" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product" data-productid="7" data-position="2" data-available="true" data-hastree="" data-skipservice="true">
+                           <figure><a href="" title="TV LED 19.5 Samsung - T20C310 e Função Monitor" itemprop="url">
+                              <img src="/images/img16.jpg" class="loading" height="220" width="220"></a>
+                           </figure>
+                           <div class="inner-content">
+                              <a href="/produto/7/tv-led-19-5-samsung-t20c310-e-fun-o-monitor" class="product-link">
+                                 <span class="product-title" itemprop="name" style="height:50px;">TV LED 19.5 Samsung - T20C310 e Função Monitor</span>
+                                 <p class="shelf-price" itemprop="offers" itemscope="" itemtype="//schema.org/Offer"><span class="payment-price-old"><span class="label">De: </span><del>R$ 12.500,50</del></span><span class="payment-sell"><span class="label">Por</span>
+                                    <span itemprop="priceCurrency" content="BRL" class="payment-currency">R$ </span>
+                                    <span class="payment-price" itemprop="price"><strong><span class="int">12.001</span><span class="dec">,10</span></strong></span></span><span class="tooltip-container"></span><span class="payment-installment"><span class="payment-installment-amount" itemprop="itemCondition">10x <span>de </span><span class="payment-installment-currency"></span><span class="payment-installment-price">R$ 1.250,05 </span><span class="payment-installment-condition">sem juros</span></span></span>
+                                 </p>
+                              </a>
+                              <div class="stickers">
+                                 <ul>
+                                    <li class="stamp-top"></li>
+                                    <li class="stamp-middle"></li>
+                                    <li class="stamp-bottom"></li>
+                                 </ul>
+                              </div>
+                              <div style="opacity: 0;" class="button-container"><button type="button" class="buy-button btn btn-success" data-sku="1222680" data-product="3088224" data-seller="1" data-available="true" data-skipservice="true" data-departmentid="4791" data-categoryid="4792" data-subcategoryid="4799"><span style="opacity: 0;" class="icon"></span></button></div>
+                           </div>
+                        </li>
+                        <li class="shelf-item  item-3 with-buy-box" data-tooltip-class="left" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product" data-productid="19" data-position="3" data-available="true" data-hastree="" data-skipservice="true">
+                           <figure><a href="" title="" itemprop="url">
+                              <img src="/images/img57.jpg" class="loading" height="220" width="220"></a>
+                           </figure>
+                           <div class="inner-content">
+                              <a href="/produto/19/smart-tv-led-40a-samsung-40h5103-full-hd-fun-o-futebol-connectshare-movie-samsung" class="product-link">
+                                 <span class="product-title" itemprop="name" style="height:50px;">Smart TV LED 40” Samsung 40H5103 Full HD Função Futebol ConnectShare Movie
+                                 Samsung</span>
+                                 <p class="shelf-price" itemprop="offers" itemscope="" itemtype="//schema.org/Offer"><span class="payment-price-old" style="visibility:hidden"><span class="label">De: </span><del>R$ 1.499,00</del></span><span class="payment-sell"><span class="label">Por</span>
+                                    <span itemprop="priceCurrency" content="BRL" class="payment-currency">R$ </span>
+                                    <span class="payment-price" itemprop="price"><strong><span class="int">1.499</span><span class="dec">,00</span></strong></span></span><span class="tooltip-container"></span><span class="payment-installment"><span class="payment-installment-amount" itemprop="itemCondition">10x <span>de </span><span class="payment-installment-currency"></span><span class="payment-installment-price">R$ 149,90 </span><span class="payment-installment-condition">sem juros</span></span></span>
+                                 </p>
+                              </a>
+                              <div class="stickers">
+                                 <ul>
+                                    <li class="stamp-top"></li>
+                                    <li class="stamp-middle"></li>
+                                    <li class="stamp-bottom"></li>
+                                 </ul>
+                              </div>
+                              <div class="button-container"><button type="button" class="buy-button btn btn-success hidden" data-sku="1222680" data-product="3088224" data-seller="1" data-available="true" data-skipservice="true" data-departmentid="4791" data-categoryid="4792" data-subcategoryid="4799"><span class="icon"></span></button></div>
+                           </div>
+                        </li>
+                     </ul>
+                  </section>
+               </div>
+ <!--#####################################-->
+        
+        
+        
+ 
+
+
+        
+        
+        
+    </div>   
+    <?= $this->render('orion/atendimento'); ?>    
+    <?= $this->render('orion/forma_pagamento'); ?>    
+    <?= $this->render('orion/sobre_loja'); ?>
+</div>
+</div>
+<?= $this->render('orion/footer'); ?>
+<link rel="stylesheet" href="//static.wmobjects.com.br/webstore/style/product.min.css">
+<script src="/js/orion/product.min.js"></script>

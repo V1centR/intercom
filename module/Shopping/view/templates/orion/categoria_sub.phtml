@@ -1,0 +1,36 @@
+<?= $this->render('orion/header'); ?>
+
+<body class="webstore department">
+<script>angular.module('ui.bootstrap.app', ['ui.bootstrap']);</script>
+    <?= $this->render('orion/b_principal'); ?>
+    <link rel="stylesheet" href="//static.wmobjects.com.br/webstore/style/department.min.css">
+    <?= $this->render('orion/barra_categoria'); ?>
+    <?= $this->render('orion/newsletter'); ?>
+
+    <div id="main" class="clearfix">    
+       
+      <?= $this->render('orion/barra_progresso_categoria'); ?>
+        
+        <div class="content">
+
+            <?= $this->render('orion/barra_subcategoria_nv1'); ?>
+           
+            <div class="main-content">                
+                
+                <?= $this->render('orion/produtos_da_subcategoria'); ?>
+                
+            </div><!--/main-content-->
+
+        </div><!--/content-->
+    </div>
+
+
+
+    <?= $this->render('orion/atendimento'); ?>
+    <?= $this->render('orion/forma_pagamento'); ?>    
+    <?= $this->render('orion/sobre_loja'); ?> 
+</footer>
+</div>
+</div>
+
+<?= $this->render('orion/footer'); ?>

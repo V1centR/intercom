@@ -1,0 +1,211 @@
+<?php
+
+use \Shopping\Defaults\Services;
+
+if(!$para_vc){
+    //barra desativada########
+} else {
+
+?>
+<!--Inicio Slide prateleira para voce ####################-->
+<div class="home-list clearfix">
+<nav class="left-nav">
+<h2 class="menu-title">
+<a class="menu-title-link" href="#"></span>Para Você</a></h2>
+
+   
+
+<ul class="menu-items">
+    <?php 
+    
+    $setUrl = new Services();
+    $url_seo = $setUrl->formatUrl($para_vc_banner['nome'],'-');
+    
+    ?>
+    
+    <a class="visited" href="/produto/<?php  echo $para_vc_banner['id'].'/'.$url_seo; ?>">
+    <div style="padding-left: 12px; height: 170px; color: #666;">
+        
+        <div style=" position: relative; float: left; width: 150px; height: 170px; margin-right: 8px;">
+            <?php
+            $i = 0;
+            ?>
+            
+            <img src="images/<?php  echo $para_vc_banner['img']; ?>" width="147" height="148">
+            
+        </div> 
+        
+       
+        <span style="position: relative; float: left; width: 60px; font-size: 16px; line-height: 22px; color: #1a75ce;">
+            Você visitou e separamos mais ofertas para você.            
+        </span>
+        
+        
+    </div>
+    </a>
+</ul>
+</nav>
+    
+<!--Horizontal Wrap###############-->
+<div class="shelf-home shelf-container shelf-horizontal  two-rows">
+<div class="shelf-itens carousel-shelf-horizontal arrow-big clearfix" ng-controller="pvcActions">
+
+    
+    <?php
+        
+        $i = 0;       
+       
+        foreach ($para_vc as $key => $pvc_data) {        
+         
+         $produto_id = $pvc_data['id'];
+         $produto_nome = $pvc_data['nome'];
+         $imagem = 'img'.$pvc_data['img_id'].'.'.$pvc_data['ext'];
+        //$url_seo = filterUrl2($produto_nome,'-');
+      
+            
+            
+            $preco_promo = substr($pvc_data['precopromocional'], 0, -3);
+            $preco_promo_dec = substr($pvc_data['precopromocional'], -2);
+            
+            #preco normal###################
+            $preco_ok = $pvc_data['precounitario'];
+            ################################
+            
+            
+            
+            if(empty($preco_promo)){      
+            
+                
+            $preco_promo = substr($pvc_data['precounitario'], 0, -3);
+            $preco_promo_dec = substr($pvc_data['precounitario'], -2);
+            $hide = 'style="display:none"';
+                
+            } else {
+                
+                $hide = '';                
+            }
+            
+            
+         echo '             
+                <!--item #########################-->
+                    <div class="shelf-item with-buy-box clearfix" data-productId="2987341" data-available="true" data-hastree="" data-
+
+                    skipservice="true">
+
+                    <figure><a href="produto/'.$produto_id.'/'.$setUrl->formatUrl($produto_nome,'-').'" title="Testes Ótimo negócio template">
+                        <img class="lazyOwl" data-src="images/'.$imagem.'" alt="Ótimo negocio teste" width="130" 
+
+                    height="130"></a>
+                    </figure>
+
+                    <div class="inner-content">
+                    <div class="left-align">
+                    <a href="produto/'.$produto_id.'/'.$setUrl->formatUrl($produto_nome,'-').'">
+                    <span class="product-title" style="height:50px;">'.$produto_nome.'</span>
+                    <p class="shelf-price"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+                    <span class="payment-price-old">
+                    <span class="label" '.$hide.'>De: </span>
+
+                    <del '.$hide.'>R$ '.$preco_ok.'</del></span>
+
+                    <span class="payment-sell">
+                    <span class="label">Por</span><span class="payment-currency">R$ </span>
+                    <meta itemprop="priceCurrency" content="BRL">
+                    <span class="payment-price" itemprop="price">
+                    <strong>
+                    <span class="int">'.$preco_promo.'</span><span class="dec">,'.$preco_promo_dec.'</span>
+                    </strong></span>
+
+                    <span class="tooltip-container"></span>
+                    </span>
+
+                    <span class="payment-installment">
+                    <span class="payment-installment-amount" itemprop="itemCondition">à vista</span>
+                    </span></p>
+
+                    </a>
+                    </div>
+
+                    <div class="stickers">
+                    <ul>
+                    <li class="stamp-top"></li>
+                    <li class="stamp-middle"></li>
+                    <li class="stamp-bottom"></li>
+                    </ul>
+                    </div>
+
+                    <div class="button-container">
+                    
+                    
+<button type="button" name="test[]" class="buy-button btn btn-success hidden" ng-click="addCart1('.$produto_id.') " >
+            <span class="icon"></span>
+            </button>
+                    </div>
+                    </div>
+                    </div>
+                <!--/ item################-->
+             ';
+        $i++;
+      }
+      
+    
+    ?>
+   
+    <!--span controlelr cartAction################### -->
+    <script>
+   
+        angular.module('ui.bootstrap.app').controller('pvcActions', function ($scope, $http) {
+             
+                $scope.addCart1 = function (data) {
+              
+                  $scope.prod_id = data;
+                 
+                  $('#num_itens').css('display', 'inline-block');                 
+                 
+                    var request = $http({
+                        method: "post",
+                        url: "/cart/add",
+                        data: {
+                            prod_id: $scope.prod_id,
+                            
+                        },
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    });                    
+                    
+                    /* Check whether the HTTP Request is successful or not. */
+                    request.success(function (data) {                       
+                        $( "div#cart" ).fadeIn( "fast" ).show();                        
+                        $("div#cart").load("/cart/queryCart");
+                        
+                        
+                        setTimeout(function(){
+                            
+                             if($('div#showCart').is(":hover")) {
+                                 
+                                 $("div#showCart").mouseleave(function () {
+                                    $( "div#cart" ).fadeOut( "fast" );
+                                 });  
+                             } else {
+                                 
+                                 $( "div#cart" ).fadeOut( "slow" );
+                             }
+                             
+                         },4000);
+                    });
+                    request.error(function (data) {
+                         
+                    });
+                };
+            });    
+    </script>
+    <!--/horizontal Wrap################-->
+    
+</div>
+</div>
+
+
+
+</div>
+<!--/Slide prateleira para voce####################-->
+<?php } ?>

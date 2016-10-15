@@ -1,0 +1,66 @@
+<?= $this->render('orion/header'); ?>
+<body class="webstore department">
+<script>angular.module('ui.bootstrap.app', ['ui.bootstrap']);</script>
+<?php
+use \Shopping\Defaults\Services;
+?>
+    <?= $this->render('orion/b_principal'); ?>
+    <link rel="stylesheet" href="/css/orion/department.min.css">
+    <?= $this->render('orion/barra_categoria'); ?>
+    <?= $this->render('orion/newsletter'); ?>
+
+    <div id="main" class="clearfix">    
+        <?= $this->render('orion/barra_progresso_categoria'); ?>    
+
+        <div class="content">
+
+            <?= $this->render('orion/barra_categoria_qtd'); ?>
+
+            <div class="main-content">
+
+                <!--carousel ###################-->
+                <?= $this->render('orion/banner_categoria'); ?>
+                <!--/carousel###############-->
+
+
+                <!--conteudo categoria#####################-->
+                <?= $this->render('orion/produtos_da_categoria'); ?>
+                <!--/conteudo categoria#####################-->
+
+
+                <!--banner promoção################-->
+                <?= $this->render('orion/banner_promocao'); ?>
+                <!--/banner promoção################-->
+
+
+                <!--Mais vendidos########################-->
+                <?= $this->render('orion/mais_vendidos'); ?>
+                <!--/Mais vendidos########################-->
+
+                <!--escolhemos p vc########################-->
+                <?= $this->render('orion/escolhemos_para_vc'); ?>
+                <!--/escolhemos p vc########################-->        
+
+            </div><!--/main-content-->
+
+        </div><!--/content-->
+    </div>
+    <?= $this->render('orion/atendimento'); ?>
+    <?= $this->render('orion/forma_pagamento'); ?>    
+    <?= $this->render('orion/sobre_loja'); ?> 
+</footer>
+</div>
+</div>
+
+<?= $this->render('orion/footer'); ?>
+<script>        
+        $(document).ready(function(){            
+             $("div#showCart").mouseover(function(){              
+                $( "div#cart" ).fadeIn( "fast" ).show();        
+            });
+            $("div#showCart").mouseleave(function () {
+               $( "div#cart" ).fadeOut( "fast" );
+            });  
+        });
+        
+</script>

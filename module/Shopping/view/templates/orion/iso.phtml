@@ -1,0 +1,288 @@
+<?= $this->render('orion/header'); ?>
+<body class="webstore home" > 
+<div class="loading" style="height: 30px; background-color: #fff;" id="loadTest"></div>
+    
+<script>angular.module('ui.bootstrap.app', ['ui.bootstrap']);</script>
+<script>
+
+$(document).ready(function(){
+        
+ 
+    });
+    
+    
+    function selectA(item){
+    
+    var idItem = $(item).attr("id");   
+    var urlReady = $('#searchBar').serializeArray();
+    var itemUrl = '';
+    var cat = [];
+    var key = '';
+    
+    
+    
+       
+        
+        jQuery.each(urlReady, function(){
+            
+         
+          
+          key += this.value;
+          cat += this.name + ',';
+          // console.log(key);
+           
+           
+           // $('#urlResult').html(this.value);
+            
+        });
+        
+    console.log(cat);
+    $('#urlResult').html('?' + key);
+    
+    // alert(id);
+     
+     
+    
+//    if($(this).attr('checked')){
+//        
+//       
+//    }
+//    
+    
+    
+    
+    
+}
+
+
+
+
+</script>
+
+<?= $this->render('orion/b_principal'); ?>
+
+
+
+<div style=" margin: 0 auto; font-size: 12px; width: 500px; border: 1px solid #CCC; padding: 40px; margin-top: 20px; margin-bottom: 20px;">
+
+    
+    <?php 
+        $i = 0;
+        $itens = array(            
+                'Marca' => array('LG','Samsung','Panasonic','AOC', 'Philips','Sony'),
+                'Tecnologia' => array('SmartTV','3D','4K','Gravar'),
+                'Polegadas' => array('32','40','42','48', '50','52')
+            
+            );
+        echo '<form id="searchBar">';
+       foreach($itens as $itemKey => $dataItem){
+           
+           echo '<div style="font-size:18px">'.$itemKey.'</div>';
+           
+           foreach($dataItem as $item){
+               
+               echo '<input type="checkbox" name="'.$itemKey.'[]" value="'.$i.'" onclick="selectA(this)" id="'.$i.'"> '.$item.'<br>';
+               $i++;
+           }
+           
+           echo '<br>';
+           
+       }
+       
+       
+       
+        echo '</form>';
+        
+    
+    
+    ?>
+    
+    
+    
+    <div id="urlResult"></div>
+  
+    <?php
+    ###############################
+    //print_r($faixa_preco);    
+    //echo round(494.45, -2);   
+    
+    $preco_maior = $faixa_preco[0]['preco_max'];
+    $preco_menor = $faixa_preco[0]['preco_min'];
+    
+   
+    ################################
+   
+    
+    
+    
+    
+    
+   // $range_config = $preco_maior/8;
+    //$range_config = round($preco_maior/8, -3);
+    
+    //echo "Range de precos >>".$range_config.'<br><br>';
+    
+    
+    
+    //print_r($array_precos);
+    
+  
+    
+    //echo 'Teste 2 ======================<br><br><br>';
+    //echo $preco_maior;
+    
+    
+    $setInterval = 10;
+    
+    
+    if($preco_menor <= 9.99){
+        
+        $linha1 = "Até R$ 9.99";
+        
+    } else if($preco_menor <= 19.99){
+        
+        $linha1 = "Até R$ 19.99";
+        
+    } else if($preco_menor <= 49.99){        
+        
+        $linha1 = "Até R$ 49.99";
+        
+    }else if($preco_menor <= 99.99){        
+        
+        $linha1 = "Até R$ 99.99";
+        
+    }else if($preco_menor <= 999.99){        
+        
+        $linha1 = "Até R$ 999.99";
+        
+    }else if($preco_menor >= 1000){
+        
+        $linha1 = 1;
+        
+    }
+    
+    
+    if($preco_maior >= 10000.00){
+        
+        $linha2 = "Acima de R$ 10 mil";
+        $setInterval = 2000;
+        
+    } else if($preco_maior >= 5000.00){
+        
+        $linha2 = "Acima de R$ 5.000,00";
+        $setInterval = 2000;
+        
+    } else if($preco_maior >= 2000.00){
+        
+        $linha2 = "Acima de R$ 2.000,00";
+         $setInterval = 1000;
+        
+    } else if($preco_maior >= 999.99){
+        
+        $linha2 = "Acima de R$ 1000.00";
+         $setInterval = 100;
+        
+    } else if($preco_maior >= 500.00){
+        
+        $linha2 = "Acima de R$ 500";
+         $setInterval = 100;
+        
+    } else if($preco_maior >= 99.99){
+        
+        $linha2 = "Acima de R$ 99.99";
+         $setInterval = 50;
+        
+    } 
+    
+    
+    
+    $array_precos = range(0,$preco_maior, $setInterval);
+    
+    
+    
+    
+    //echo '<br>'.$linha1.'<br>';
+    //echo '<br>'.$linha2.'<br>';
+    
+    
+    
+    echo '<br><br><br>===============================';
+    
+    
+   #retira primeira chave com 0##########
+   array_shift($array_precos);
+   array_pop($array_precos);
+   $set_str = 0;
+   
+
+  // print_r($array_precos);
+
+    ?>
+    
+    
+
+    
+</div>
+
+<script>
+    
+    $( window ).load(function() {
+        
+        $('div#loadTest').fadeOut('fast');
+        
+    });
+    
+   
+    
+    
+    $( "select#outro_assunto" ).change(function() {
+        
+        var optionValue = $('select#outro_assunto').val();
+        
+        //alert(optionValue );
+    });
+    
+    
+    
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--rodape#################################-->
+    <footer>
+        <div class="go-to-top-container">
+            <div class="go-to-top">
+            </div>
+        </div>
+
+        <div class="go-to-top-container">
+            <div class="go-to-top hide">
+            </div>
+        </div>
+
+      
+        
+        <?= $this->render('orion/atendimento'); ?>
+
+        <?= $this->render('orion/forma_pagamento'); ?>
+
+       
+    </footer>
+</div>
+</div>
+
+<?= $this->render('orion/footer'); ?>

@@ -1,0 +1,163 @@
+<!--Inicio Slide prateleira categoria ####################-->
+
+     <?php
+
+  
+        $contador = 0; 
+        $switch_ = '';
+         
+            foreach ($get_produtos as $getProd) {
+
+            if($getProd['categoria_pri'] != $switch_){
+            ?>      
+              <div class="home-list clearfix">
+                <nav class="left-nav">
+
+                    <ul class="menu-items">
+                    <h2 class="menu-title">
+                        <a class="menu-title-link" href="#"><span><?php echo $getProd['categoria_pri']; ?></span></a></h2>
+                          <li class="menu-item-left">                              
+                           
+                          <?php
+                              $change = '';
+                                foreach ($get_produtos as $sub_item) {
+                                    
+                                    
+                                    if($sub_item['categoria_pri'] == $getProd['categoria_pri']){
+                                        
+                                        if($sub_item['categoria_nome'] != $change){
+                                            
+                                            echo '<a class="menu-left-link" href="#">'.$sub_item['categoria_nome'].'</a></li>';   
+                                            
+                                        }
+                                                                               
+                                    }
+                                    $change = $sub_item['categoria_nome']; 
+
+                                }
+                          ?>
+         </ul>                       
+                    <span class="menu-item-left last">
+                    <a class="menu-left-link" href="">Veja mais opções</a>
+                    </span>
+                    </nav>           
+
+            <!--Horizontal Wrap###############-->
+            <div class="shelf-home shelf-container shelf-horizontal  two-rows">
+            <div class="shelf-itens carousel-shelf-horizontal arrow-big clearfix">
+                
+             
+                
+                
+             <?php 
+             
+                foreach($get_produtos as $itens){
+                    
+                    
+                   $preco_unit = $itens['precounitario'];
+                   
+                   $preco_promo = substr($itens['precopromocional'], 0, -3);
+                   $preco_promo_dec = substr($itens['precopromocional'], -2);
+                   
+               
+                    
+                    if(empty($preco_promo)){
+                        $preco_promo = substr($preco_unit, 0, -3);
+                        $preco_promo_dec = substr($preco_unit, -2);
+                        $hide = 'style="display:none"';
+                    } else {
+                        $hide = '';                
+                    }
+                    
+                    
+                   if($itens['categoria_pri'] == $getProd['categoria_pri']){
+                        
+                  
+             
+             ?>
+                
+                
+
+            <!--item #########################-->
+            <div class="shelf-item with-buy-box clearfix" data-productId="2987341" data-available="true" data-hastree="" data-
+
+            skipservice="true">
+
+            <figure><a href="#" title="Testes Ótimo negócio template"><img class="lazyOwl" data-
+
+            src="images/img<?php echo $itens['imagemId'].'.'.$itens['ext']; ?>" alt="Ótimo negocio teste" width="130" 
+
+            height="130"></a>
+            </figure>
+
+            <div class="inner-content">
+            <div class="left-align">
+            <a href="#">
+            <span class="product-title" style="height:50px;"><?php echo $itens['nome']; ?></span>
+            <p class="shelf-price"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <span class="payment-price-old">                
+            <span class="label" <?php echo $hide; ?>>De: </span>
+            <del <?php echo $hide; ?>>R$ <?php echo $itens['precounitario']; ?></del>
+            </span>
+
+            <span class="payment-sell">
+            <span class="label">Por</span><span class="payment-currency">R$ </span>
+            <meta itemprop="priceCurrency" content="BRL">
+            <span class="payment-price" itemprop="price">
+            <strong>
+            <span class="int"><?php echo $preco_promo; ?></span><span class="dec">,<?php echo $preco_promo_dec; ?></span>
+            </strong></span>
+
+            <span class="tooltip-container"></span>
+            </span>
+
+            <span class="payment-installment">
+            <span class="payment-installment-amount" itemprop="itemCondition">à vista</span>
+            </span></p>
+
+            </a>
+            </div>
+
+            <div class="stickers">
+            <ul>
+            <li class="stamp-top"></li>
+            <li class="stamp-middle"></li>
+            <li class="stamp-bottom"></li>
+            </ul>
+            </div>
+
+            <div class="button-container">
+            <button type="button" class="buy-button btn btn-success hidden" data-sku="1108230" data-product="2987341" data-
+
+            seller="saraiva" data-available="true" data-skipservice="true">
+            <span class="icon"></span>
+            </button>
+            </div>
+            </div>
+            </div>
+            <!--/ item################-->
+            <?php
+            
+                   }
+           
+                    }#foreach dos itens#############                    
+                    
+                    $switch_ = $getProd['categoria_pri'];
+            ?>
+            
+
+
+            </div>
+            </div>
+
+            <!--/horizontal Wrap################-->
+            </div>
+<?php
+            }
+            
+        }
+        #fecha foreach($categorias as $data_cat)######
+?>
+
+
+<!--/Slide prateleira categoria####################-->

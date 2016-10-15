@@ -1,0 +1,65 @@
+<ul class="breadcrumb department-breadcrumb">
+    
+    <li class="breadcrumb-item home" itemscope="">
+        <a class="breadcrumb-link" href="/" title="Inicio" itemprop="url">
+            
+        </a>
+    </li>
+    
+    <?php
+   
+    
+    $path = array($caminho['nome_pri'], $caminho['cat_pai_nome'], $caminho['nome']);
+    
+    
+    
+    if($caminho_type == 1){
+        
+        echo '<li class="breadcrumb-item" itemscope="">
+                    <h1 class="breadcrumb-main"><a class="breadcrumb-link department-link" itemprop="url" href="#" >
+                            <span itemprop="title">
+
+                                '.$caminho['cat_pai_nome'].'
+
+                            </span>
+                        </a>
+                    </h1>
+                 </li>';
+        
+        
+    } else if($caminho_type == 2){
+        
+        
+        
+        foreach ($path as $value) {
+        
+        
+        
+            if(!empty($value)){
+                
+                echo '<li class="breadcrumb-item" itemscope="">
+                    <h1 class="breadcrumb-main"><a class="breadcrumb-link department-link" itemprop="url" href="/categoria-sub'.$caminho['url_pri'].$caminho['url_pai'].'" >
+                            <span itemprop="title">
+
+                                '.$value.'
+
+                            </span>
+                        </a>
+                    </h1>
+                 </li>';
+                
+            }
+       
+}
+    }
+        
+        
+  
+        
+    
+    
+    ?>
+    
+    
+    
+</ul>

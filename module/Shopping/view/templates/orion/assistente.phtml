@@ -1,0 +1,318 @@
+<!doctype html>
+<html ng-app="ui.bootstrap.app">
+<head>
+<meta charset="utf-8">
+<title> - </title>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+
+
+<script>
+    angular.module('ui.bootstrap.app',['ui.bootstrap']);
+  
+            angular.module('ui.bootstrap.app').controller('recoverSenha', function ($scope, $http,$timeout) {
+                
+                
+                $scope.callAtTimeout = function() {
+                    window.location = "/";
+                }
+                
+                
+                $scope.recoverSend = function ($rootScope) {
+                    //document.getElementById("messageCadastrar1").textContent = "";
+                    
+                    var idconfemail = document.getElementById("idconfemail").value;
+                    
+                    //alert($scope.email);
+                    var request = $http({
+                        method: "post",
+                        url: "/users/resetsenha",
+                        data: {
+                            idconfemail: idconfemail,
+                            senha_1: $scope.senha_1,
+                            senha_c: $scope.senha_c,                            
+                        },
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    });
+                    /* Check whether the HTTP Request is successful or not. */
+                    request.success(function (data) {
+                        
+                        document.getElementById("messageReset").textContent =  data;
+                        
+                        var cad_command = angular.fromJson(data);                        
+                        
+                        if(cad_command == true){
+                          
+                          document.getElementById("messageReset").style.display = 'none';
+                          document.getElementById("messageOk").textContent = "Senha atualizada com sucesso! Você será redirecionado para loja";
+                          $timeout( function(){ $scope.callAtTimeout(); }, 5000);
+                          
+                        }
+                       
+                    });
+                    request.error(function (data) {
+                         document.getElementById("messageReset").textContent = "Houve um problema ["+data+"]";
+                    });
+                }
+            });
+            
+            
+            
+     //###############################################################
+  
+
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != "function") {
+		window.onload = func;
+	}
+	else {
+		window.onload = function() {
+			if (oldonload) {
+				oldonload();
+			}
+			func();
+		};
+	}
+}
+
+function $() {
+	var arrElms = [];
+	for (var i=0; i < arguments.length; i++) {
+		var elm = arguments[i];
+		if (typeof(elm == "string")) { elm = document.getElementById(elm); }
+		if (arguments.length == 1) { return elm; }
+		arrElms.push(elm);
+	}
+	return arrElms;
+}
+
+String.prototype.strReverse = function() {
+	var newstring = "";
+	for (var s=0; s < this.length; s++) {
+		newstring = this.charAt(s) + newstring;
+	}
+	return newstring;
+	//strOrig = ' texttotrim ';
+	//strReversed = strOrig.revstring();
+};
+
+function chkPass(pwd) {
+	var oScorebar = $("scorebar");
+	var oScore = $("score");
+	var oComplexity = $("complexity");
+	// Simultaneous variable declaration and value assignment aren't supported in IE apparently
+	// so I'm forced to assign the same value individually per var to support a crappy browser *sigh* 
+	var nScore=0, nLength=0, nAlphaUC=0, nAlphaLC=0, nNumber=0, nMidChar=0, nAlphasOnly=0, nNumbersOnly=0, nUnqChar=0, nRepChar=0, nRepInc=0, nConsecAlphaUC=0, nConsecAlphaLC=0, nConsecNumber=0, nConsecSymbol=0, nConsecCharType=0, nSeqAlpha=0, nSeqNumber=0, nSeqSymbol=0, nSeqChar=0, nReqChar=0, nMultConsecCharType=0;
+	var nMultRepChar=1, nMultConsecSymbol=1;
+	var nMultMidChar=2, nMultRequirements=2, nMultConsecAlphaUC=2, nMultConsecAlphaLC=2, nMultConsecNumber=2;
+	var nReqCharType=3, nMultAlphaUC=3, nMultAlphaLC=3, nMultSeqAlpha=3, nMultSeqNumber=3, nMultSeqSymbol=3;
+	var nMultLength=4, nMultNumber=4;
+	var nMultSymbol=6;
+	var nTmpAlphaUC="", nTmpAlphaLC="", nTmpNumber="", nTmpSymbol="";
+	var sAlphaUC="0", sAlphaLC="0", sNumber="0", sSymbol="0", sMidChar="0", sRequirements="0", sAlphasOnly="0", sNumbersOnly="0", sRepChar="0", sConsecAlphaUC="0", sConsecAlphaLC="0", sConsecNumber="0", sSeqAlpha="0", sSeqNumber="0", sSeqSymbol="0";
+	var sAlphas = "abcdefghijklmnopqrstuvwxyz";
+	var sNumerics = "01234567890";
+	var sSymbols = ")!@#$%^&*()";
+	var sComplexity = "...";
+	var sStandards = "Below";
+	var nMinPwdLen = 6;
+	if (document.all) { var nd = 0; } else { var nd = 1; }
+	if (pwd) {
+		nScore = parseInt(pwd.length * nMultLength);
+		nLength = pwd.length;
+		var arrPwd = pwd.replace(/\s+/g,"").split(/\s*/);
+		var arrPwdLen = arrPwd.length;
+		
+		/* Loop through password to check for Symbol, Numeric, Lowercase and Uppercase pattern matches */
+		for (var a=0; a < arrPwdLen; a++) {
+			if (arrPwd[a].match(/[A-Z]/g)) {
+				if (nTmpAlphaUC !== "") { if ((nTmpAlphaUC + 1) == a) { nConsecAlphaUC++; nConsecCharType++; } }
+				nTmpAlphaUC = a;
+				nAlphaUC++;
+			}
+			else if (arrPwd[a].match(/[a-z]/g)) { 
+				if (nTmpAlphaLC !== "") { if ((nTmpAlphaLC + 1) == a) { nConsecAlphaLC++; nConsecCharType++; } }
+				nTmpAlphaLC = a;
+				nAlphaLC++;
+			}
+			else if (arrPwd[a].match(/[0-9]/g)) { 
+				if (a > 0 && a < (arrPwdLen - 1)) { nMidChar++; }
+				if (nTmpNumber !== "") { if ((nTmpNumber + 1) == a) { nConsecNumber++; nConsecCharType++; } }
+				nTmpNumber = a;
+				nNumber++;
+			}
+			else if (arrPwd[a].match(/[^a-zA-Z0-9_]/g)) { 
+				if (a > 0 && a < (arrPwdLen - 1)) { nMidChar++; }
+				if (nTmpSymbol !== "") { if ((nTmpSymbol + 1) == a) { nConsecSymbol++; nConsecCharType++; } }
+				nTmpSymbol = a;
+				nSymbol++;
+			}
+			/* Internal loop through password to check for repeat characters */
+			var bCharExists = false;
+			for (var b=0; b < arrPwdLen; b++) {
+				if (arrPwd[a] == arrPwd[b] && a != b) { /* repeat character exists */
+					bCharExists = true;
+					/* 
+					Calculate icrement deduction based on proximity to identical characters
+					Deduction is incremented each time a new match is discovered
+					Deduction amount is based on total password length divided by the
+					difference of distance between currently selected match
+					*/
+					nRepInc += Math.abs(arrPwdLen/(b-a));
+				}
+			}
+			if (bCharExists) { 
+				nRepChar++; 
+				nUnqChar = arrPwdLen-nRepChar;
+				nRepInc = (nUnqChar) ? Math.ceil(nRepInc/nUnqChar) : Math.ceil(nRepInc); 
+			}
+		}
+		
+		/* Check for sequential alpha string patterns (forward and reverse) */
+		for (var s=0; s < 23; s++) {
+			var sFwd = sAlphas.substring(s,parseInt(s+3));
+			var sRev = sFwd.strReverse();
+			if (pwd.toLowerCase().indexOf(sFwd) != -1 || pwd.toLowerCase().indexOf(sRev) != -1) { nSeqAlpha++; nSeqChar++;}
+		}
+		
+		/* Check for sequential numeric string patterns (forward and reverse) */
+		for (var s=0; s < 8; s++) {
+			var sFwd = sNumerics.substring(s,parseInt(s+3));
+			var sRev = sFwd.strReverse();
+			if (pwd.toLowerCase().indexOf(sFwd) != -1 || pwd.toLowerCase().indexOf(sRev) != -1) { nSeqNumber++; nSeqChar++;}
+		}
+		
+		/* Check for sequential symbol string patterns (forward and reverse) */
+		for (var s=0; s < 8; s++) {
+			var sFwd = sSymbols.substring(s,parseInt(s+3));
+			var sRev = sFwd.strReverse();
+			if (pwd.toLowerCase().indexOf(sFwd) != -1 || pwd.toLowerCase().indexOf(sRev) != -1) { nSeqSymbol++; nSeqChar++;}
+		}
+                
+                /* Modify overall score value based on usage vs requirements */
+               
+		/* Determine complexity based on overall score */
+		if (nScore > 100) { nScore = 100; } else if (nScore < 0) { nScore = 0; }
+		if (nScore >= 0 && nScore < 20) { sComplexity = "Senha Fraca"; }
+		else if (nScore >= 20 && nScore < 40) { sComplexity = "Média"; }
+		else if (nScore >= 40 && nScore < 60) { sComplexity = "Boa"; }
+		else if (nScore >= 60 && nScore < 80) { sComplexity = "Forte"; }
+		else if (nScore >= 80 && nScore <= 100) { sComplexity = "Muito forte"; }
+		
+		/* Display updated score criteria to client */
+		oScorebar.style.backgroundPosition = "-" + parseInt(nScore * 4) + "px";
+		oScore.innerHTML = nScore + "%";
+		oComplexity.innerHTML = sComplexity;
+	}
+	else {
+		/* Display default score criteria to client */
+		initPwdChk();
+		oScore.innerHTML = nScore + "%";
+		oComplexity.innerHTML = sComplexity;
+	}
+}
+
+
+
+
+addLoadEvent(function() { initPwdChk(1); });
+</script>
+<style>
+    
+    
+    #score {
+	color: #000;
+	font-size: 12px;
+	position:absolute;
+	text-align: center;
+	width: 100px;
+	z-index: 10;
+}
+#score,#rating,#standards {
+	font-weight: bold;
+}
+
+#scorebar {
+	background-image: url(/images/score_bar.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	position:relative;
+	width: 100px;
+	z-index: 0;
+}
+    
+</style>
+
+</head>
+
+<body>    
+    
+    
+
+<div class="panel panel-default" style="width:500px; position:relative; margin:auto; top:40px;">
+ 
+ <div class="panel-heading" style="font-weight:bold;">Reinicialização de senha</div>
+  <div class="panel-body">
+      
+      <div style=" text-align: center; top: 40px; background-color: #f5f5f5; position: relative; float: right; left: 150px; height: 0px; width: 120px;"> 
+          <div id="complexity" style="height: 20px; position: relative; right: 13px;"></div>
+          
+          
+          <div class="clear"></div>
+          <div id="scorebarBorder" style="float:left;">
+            <div id="score">0%</div>
+            <div id="scorebar">&nbsp;</div>
+        </div>  
+
+        
+
+  </div>
+    
+ 
+  
+  <div style=" width:220px; text-align: center; padding-top: 40px; height:200px; position:relative; float:left; border:1px solid #ccc; margin-right:40px;">
+      <img src="/images/img<?php echo $logo_shop['logoId'].'.'.$logo_shop['ext']; ?>" width="210">
+  </div>
+  
+      <div style=" width:200px; height:200px; position:relative; float:left;" ng-controller="recoverSenha">
+      
+       <div style="font-size:11px; margin-bottom:12px;">
+  Por favor insira sua nova senha abaixo.
+  </div>
+      
+  <form name="retype_senha" method="post">
+      <input type="hidden" name="idconfemail" id="idconfemail" value="<?php echo $idconfemail; ?>" >
+     
+    <div style="margin-bottom:12px;">
+    <label>Nova senha</label>
+    <input type="password" autocomplete="off" onkeyup="chkPass(this.value);" ng-model="senha_1" name="senha_1" class="form-control">
+
+
+    </div>
+
+    <div style="margin-bottom:12px;">
+     <label>Confirmar nova senha</label>
+     <input type="password"  ng-model="senha_c" name="senha_c" class="form-control">
+    </div>
+
+    <div style="">
+        <input type="submit" ng-click="recoverSend()" name="ok" value="Redefinir senha" class="btn btn-primary">
+    </div>
+
+  
+  </form>
+   <br>
+  <span id="messageReset"></span>
+  <span id="messageOk"></span>
+  
+  </div>
+  
+    
+  </div>
+</div>
+
+</body>
+</html>
